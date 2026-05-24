@@ -1,0 +1,230 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --background: #f6f8fb;
+  --foreground: #0f172a;
+  --muted: #64748b;
+  --border: #e2e8f0;
+  --card: #ffffff;
+  --primary: #0f766e;
+  --primary-dark: #115e59;
+  --navy: #0b1220;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: #f6f8fb;
+  color: #0f172a;
+}
+
+html.dark body {
+  background: #020617;
+  color: #e5e7eb;
+}
+
+::selection {
+  background: rgba(15, 118, 110, 0.18);
+}
+
+input[type="range"] {
+  accent-color: #0f766e;
+}
+
+/* Base surfaces */
+
+.page-shell {
+  min-height: 100vh;
+  background: #f6f8fb;
+  color: #020617;
+  transition:
+    background-color 500ms ease,
+    color 500ms ease;
+}
+
+html.dark .page-shell {
+  background:
+    radial-gradient(circle at 70% 20%, rgba(20, 184, 166, 0.08), transparent 32%),
+    #020617;
+  color: #f8fafc;
+}
+
+.page-section {
+  max-width: 80rem;
+  margin-inline: auto;
+  padding: 3rem 1.25rem;
+}
+
+.surface-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  box-shadow: 0 18px 60px rgba(15, 23, 42, 0.07);
+  transition:
+    background-color 500ms ease,
+    border-color 500ms ease,
+    box-shadow 500ms ease;
+}
+
+html.dark .surface-card {
+  background: rgba(15, 23, 42, 0.78);
+  border-color: rgba(148, 163, 184, 0.18);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.34);
+}
+
+.muted-surface {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+}
+
+html.dark .muted-surface {
+  background: rgba(2, 6, 23, 0.42);
+  border-color: rgba(148, 163, 184, 0.18);
+}
+
+.page-eyebrow {
+  color: #0f766e;
+}
+
+html.dark .page-eyebrow {
+  color: #5eead4;
+}
+
+.page-title {
+  color: #020617;
+}
+
+html.dark .page-title {
+  color: #f8fafc;
+}
+
+.page-desc {
+  color: #475569;
+}
+
+html.dark .page-desc {
+  color: #94a3b8;
+}
+
+.field-input {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  color: #0f172a;
+}
+
+html.dark .field-input {
+  background: rgba(2, 6, 23, 0.48);
+  border-color: rgba(148, 163, 184, 0.22);
+  color: #f8fafc;
+}
+
+.field-input::placeholder {
+  color: #94a3b8;
+}
+
+html.dark .field-input::placeholder {
+  color: #64748b;
+}
+
+.primary-action {
+  background: #020617;
+  color: #ffffff;
+}
+
+.primary-action:hover {
+  background: #1e293b;
+}
+
+html.dark .primary-action {
+  background: #ffffff;
+  color: #020617;
+}
+
+html.dark .primary-action:hover {
+  background: #e2e8f0;
+}
+
+.secondary-action {
+  background: #ffffff;
+  color: #020617;
+  border: 1px solid #e2e8f0;
+}
+
+.secondary-action:hover {
+  background: #f8fafc;
+}
+
+html.dark .secondary-action {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+html.dark .secondary-action:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.icon-tile-cyan {
+  background: #ecfeff;
+  color: #0e7490;
+  border: 1px solid #cffafe;
+}
+
+html.dark .icon-tile-cyan {
+  background: rgba(8, 145, 178, 0.12);
+  color: #67e8f9;
+  border-color: rgba(103, 232, 249, 0.16);
+}
+
+.audit-grid {
+  background-image:
+    linear-gradient(rgba(15, 23, 42, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(15, 23, 42, 0.045) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+html.dark .audit-grid {
+  background-image:
+    linear-gradient(rgba(148, 163, 184, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(148, 163, 184, 0.08) 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+/* Safe dark override for remaining utility classes */
+
+html.dark .text-slate-950,
+html.dark .text-slate-900,
+html.dark .text-black {
+  color: #f8fafc !important;
+}
+
+html.dark .text-slate-800,
+html.dark .text-slate-700 {
+  color: #e2e8f0 !important;
+}
+
+html.dark .text-slate-600,
+html.dark .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+html.dark .bg-white {
+  background-color: rgba(15, 23, 42, 0.78) !important;
+}
+
+html.dark .bg-slate-50 {
+  background-color: rgba(2, 6, 23, 0.42) !important;
+}
+
+html.dark .border-slate-200,
+html.dark .border-slate-300 {
+  border-color: rgba(148, 163, 184, 0.18) !important;
+}

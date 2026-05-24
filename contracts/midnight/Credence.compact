@@ -1,0 +1,90 @@
+pragma language_version >= 0.16;
+
+import CompactStandardLibrary;
+
+/*
+  Credence — Private Credit Passport
+
+  Core idea:
+  - Raw sales records stay private.
+  - Merchant generates private proof off-chain / witness.
+  - Contract stores only public commitments and verification status.
+  - Bank verifies eligibility from proof commitment, not raw transactions.
+
+  Public data:
+  - proof id hash
+  - merchant commitment
+  - criteria commitment
+  - proof commitment
+  - verification status
+
+  Private data:
+  - transaction rows
+  - exact revenue
+  - exact growth
+  - customer identities
+*/
+
+export ledger proofCount: Counter;
+
+/*
+  NOTE:
+  This is the hackathon-ready Compact contract skeleton.
+  The final map/set storage primitives may need adjustment depending on the
+  exact Compact compiler version installed in your Midnight toolchain.
+
+  Do not store raw sales data here.
+*/
+
+export circuit registerCreditPassport(): [] {
+  /*
+    Intended public inputs:
+    - proofIdHash
+    - merchantCommitment
+    - criteriaCommitment
+    - proofCommitment
+    - verified
+
+    Intended private witness:
+    - raw sales records
+    - exact revenue
+    - exact growth
+    - private customer/order data
+
+    Circuit checks:
+    - revenue >= selected threshold
+    - growth >= selected threshold
+    - data commitment matches private records
+    - proof commitment matches public criteria and private computation
+
+    Public ledger update:
+    - store proof commitment
+    - mark proof as registered
+    - increment proof count
+  */
+
+  proofCount.increment(1);
+}
+
+export circuit verifyCreditPassport(): [] {
+  /*
+    Intended public input:
+    - proofCommitment
+
+    Intended result:
+    - returns whether proof exists and is verified
+
+    Privacy rule:
+    - Never reveal raw sales data.
+    - Never reveal exact revenue.
+    - Never reveal customer names.
+  */
+}
+
+export circuit revokeCreditPassport(): [] {
+  /*
+    Optional circuit:
+    - merchant or verifier can revoke stale proof
+    - useful when lending criteria expire
+  */
+}
