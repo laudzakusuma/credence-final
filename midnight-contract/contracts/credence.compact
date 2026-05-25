@@ -1,0 +1,98 @@
+pragma language_version >= 0.23;
+
+import CompactStandardLibrary;
+
+/*
+  Credence — Private Credit Passport Contract
+
+  Purpose:
+  Store only public commitments and verification status for an MSME credit passport.
+
+  This contract MUST NOT store:
+  - raw sales records
+  - exact revenue
+  - exact growth percentage
+  - customer names
+  - order IDs
+  - product details
+  - private bank transactions
+
+  The private computation happens off-chain / witness side.
+  The contract stores public commitments that lenders can verify.
+*/
+
+// Public ledger state — visible on-chain
+export ledger proofIdHash: Opaque<"string">;
+export ledger merchantCommitment: Opaque<"string">;
+export ledger dataCommitment: Opaque<"string">;
+export ledger criteriaCommitment: Opaque<"string">;
+export ledger proofCommitment: Opaque<"string">;
+export ledger verificationStatus: Opaque<"string">;
+export ledger payoutRail: Opaque<"string">;
+export ledger lastUpdatedAt: Opaque<"string">;
+
+/*
+  Register a private credit passport proof.
+
+  Public inputs:
+  - proof id hash
+  - merchant commitment
+  - private data commitment
+  - selected criteria commitment
+  - proof commitment
+  - verification status
+  - payout rail
+  - updated timestamp
+
+  Private data is never stored in this contract.
+*/
+export circuit registerCreditPassport(
+    customProofIdHash: Opaque<"string">,
+    customMerchantCommitment: Opaque<"string">,
+    customDataCommitment: Opaque<"string">,
+    customCriteriaCommitment: Opaque<"string">,
+    customProofCommitment: Opaque<"string">,
+    customVerificationStatus: Opaque<"string">,
+    customPayoutRail: Opaque<"string">,
+    customUpdatedAt: Opaque<"string">
+): [] {
+    proofIdHash = disclose(customProofIdHash);
+    merchantCommitment = disclose(customMerchantCommitment);
+    dataCommitment = disclose(customDataCommitment);
+    criteriaCommitment = disclose(customCriteriaCommitment);
+    proofCommitment = disclose(customProofCommitment);
+    verificationStatus = disclose(customVerificationStatus);
+    payoutRail = disclose(customPayoutRail);
+    lastUpdatedAt = disclose(customUpdatedAt);
+}
+
+/*
+  Update verification status for the latest passport.
+
+  Suggested statuses:
+  - VERIFIED
+  - REJECTED
+  - EXPIRED
+  - REVOKED
+*/
+export circuit updateVerificationStatus(
+    customVerificationStatus: Opaque<"string">,
+    customUpdatedAt: Opaque<"string">
+): [] {
+    verificationStatus = disclose(customVerificationStatus);
+    lastUpdatedAt = disclose(customUpdatedAt);
+}
+
+/*
+  Revoke the current passport.
+
+  Compact cannot disclose a raw string literal directly into Opaque<"string">.
+  So the caller passes customRevokedStatus, usually "REVOKED".
+*/
+export circuit revokeCreditPassport(
+    customRevokedStatus: Opaque<"string">,
+    customUpdatedAt: Opaque<"string">
+): [] {
+    verificationStatus = disclose(customRevokedStatus);
+    lastUpdatedAt = disclose(customUpdatedAt);
+}
