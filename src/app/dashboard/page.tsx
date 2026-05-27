@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import MidnightContractCard from "@/components/MidnightContractCard";
 import Navbar from "@/components/Navbar";
 import StatCard from "@/components/StatCard";
 import {
@@ -99,6 +100,10 @@ export default function DashboardPage() {
             icon={CheckCircle2}
             tone="green"
           />
+        </div>
+        
+        <div className="mt-6">
+          <MidnightContractCard />
         </div>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-[1.35fr_0.65fr]">
