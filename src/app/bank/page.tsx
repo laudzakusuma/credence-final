@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import ProofBadge from "@/components/ProofBadge";
+import VerifierAuditLog from "@/components/VerifierAuditLog";
 import { CreditPassport, formatIDR, simulateStellarPayout } from "@/lib/data";
 import { motion } from "framer-motion";
 import {
@@ -124,17 +125,90 @@ function BankVerifierContent() {
                   Submit proof
                 </h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400">
-                  Paste QR proof payload.
+                  Paste or receive a private credit passport.
                 </p>
               </div>
             </div>
 
-            <textarea
-              value={proofInput}
-              onChange={(e) => setProofInput(e.target.value)}
-              placeholder="Paste Credence proof payload here..."
-              className="field-input h-64 w-full resize-none rounded-2xl p-4 font-mono text-sm outline-none transition focus:border-teal-600"
-            />
+            {proofInput ? (
+              <div className="mb-5 rounded-2xl border border-teal-200 bg-teal-50 p-4 dark:border-teal-300/15 dark:bg-teal-400/10">
+                <div className="flex items-start justify-between gap-4">
+                  <div>
+                    <p className="text-xs font-semibold uppercase tracking-[0.18em] text-teal-700 dark:text-teal-300">
+                      Proof detected
+                    </p>
+                    <h3 className="mt-2 text-lg font-semibold text-slate-950 dark:text-white">
+                      Private credit passport payload
+                    </h3>
+                    <p className="mt-1 text-sm leading-6 text-slate-600 dark:text-slate-400">
+                      The lender can verify eligibility without receiving raw sales rows,
+                      customer names, or exact revenue.
+                    </p>
+                  </div>
+
+                  <div className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 dark:border-emerald-300/15 dark:bg-emerald-400/10 dark:text-emerald-300">
+                    Ready
+                  </div>
+                </div>
+
+                <div className="mt-4 grid gap-3 sm:grid-cols-2">
+                  <div className="rounded-xl border border-white/70 bg-white/70 p-3 dark:border-white/10 dark:bg-white/5">
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                      Network
+                    </p>
+                    <p className="mt-1 text-sm font-semibold text-slate-950 dark:text-white">
+                      Midnight
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-white/70 bg-white/70 p-3 dark:border-white/10 dark:bg-white/5">
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                      Payout rail
+                    </p>
+                    <p className="mt-1 text-sm font-semibold text-slate-950 dark:text-white">
+                      Stellar USDC
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-white/70 bg-white/70 p-3 dark:border-white/10 dark:bg-white/5">
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                      Raw records exposed
+                    </p>
+                    <p className="mt-1 text-sm font-semibold text-emerald-700 dark:text-emerald-300">
+                      0 rows
+                    </p>
+                  </div>
+
+                  <div className="rounded-xl border border-white/70 bg-white/70 p-3 dark:border-white/10 dark:bg-white/5">
+                    <p className="text-xs text-slate-500 dark:text-slate-400">
+                      Customer data
+                    </p>
+                    <p className="mt-1 text-sm font-semibold text-emerald-700 dark:text-emerald-300">
+                      Hidden
+                    </p>
+                  </div>
+                </div>
+              </div>
+            ) : null}
+
+            <div>
+              <div className="mb-2 flex items-center justify-between">
+                <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
+                  Proof payload
+                </label>
+
+                <span className="text-xs text-slate-500 dark:text-slate-400">
+                  JSON / QR decoded
+                </span>
+              </div>
+
+              <textarea
+                value={proofInput}
+                onChange={(e) => setProofInput(e.target.value)}
+                placeholder="Paste Credence proof payload here..."
+                className="field-input h-36 w-full resize-none rounded-2xl p-4 font-mono text-xs leading-6 outline-none transition focus:border-teal-600"
+              />
+            </div>
 
             <button
               onClick={handleVerify}
@@ -148,8 +222,8 @@ function BankVerifierContent() {
               <div className="flex gap-3">
                 <Lock className="mt-1 text-teal-700 dark:text-teal-300" size={18} />
                 <p className="text-sm leading-6 text-slate-600 dark:text-slate-400">
-                  The lender receives a boolean verification result and selected
-                  criteria. Raw sales values remain hidden.
+                  The lender receives a boolean verification result and selected criteria.
+                  Raw sales values remain hidden.
                 </p>
               </div>
             </div>
@@ -189,6 +263,10 @@ function BankVerifierContent() {
             ) : (
               <div>
                 <ProofBadge verified={passport.result.verified} />
+
+                <div className="mt-6">
+                  <VerifierAuditLog verified={passport.result.verified} />
+                </div>
 
                 <div className="mt-6 grid gap-4 md:grid-cols-2">
                   <div className="muted-surface rounded-2xl p-4">

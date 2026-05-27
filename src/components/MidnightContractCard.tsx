@@ -83,7 +83,7 @@ export default function MidnightContractCard() {
           </p>
 
           <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-            Deployed at {new Date(MIDNIGHT_CONTRACT.deployedAt).toLocaleString()}
+            Deployed at 2026-05-25 02:09:14 UTC
           </p>
         </div>
       </div>

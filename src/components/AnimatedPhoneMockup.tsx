@@ -64,8 +64,16 @@ export default function AnimatedPhoneMockup() {
           transformStyle: "preserve-3d",
         }}
         initial={{ opacity: 0, y: 30, scale: 0.95 }}
-        animate={{ opacity: 1 }}
-        whileInView={{ opacity: 1 }}
+        animate={{
+          opacity: 1,
+          filter: isDark
+            ? "drop-shadow(0px 55px 90px rgba(0,0,0,0.58))"
+            : "drop-shadow(0px 45px 70px rgba(15,23,42,0.25))",
+        }}
+        whileHover={{
+          rotateZ: 0,
+          scale: 1.04,
+        }}
         transition={{ duration: 0.45, ease: "easeOut" }}
         viewport={{ once: false, amount: 0.35 }}
         className="relative z-10"
@@ -81,13 +89,8 @@ export default function AnimatedPhoneMockup() {
           height={1500}
           priority
           className="
-            w-[390px]
-            max-w-none object-contain
-            drop-shadow-[0_45px_70px_rgba(15,23,42,0.25)]
-            md:w-[460px]
-            lg:w-[520px]
-            xl:w-[560px]
-            dark:drop-shadow-[0_50px_90px_rgba(0,0,0,0.58)]
+            w-[390px] max-w-none object-contain
+            md:w-[460px] lg:w-[520px] xl:w-[560px]
           "
         />
       </motion.div>

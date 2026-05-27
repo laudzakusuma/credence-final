@@ -144,8 +144,12 @@ html.dark .field-input::placeholder {
 }
 
 html.dark .primary-action {
-  background: #ffffff;
-  color: #020617;
+  background: linear-gradient(135deg, #14b8a6, #0f766e);
+  color: #ffffff;
+}
+
+html.dark .primary-action:hover {
+  background: linear-gradient(135deg, #2dd4bf, #0d9488);
 }
 
 html.dark .primary-action:hover {

@@ -1,6 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import AnimatedBackground from "@/components/AnimatedBackground";
+import AnimatedBadge from "@/components/AnimatedBadge";
 import AnimatedPhoneMockup from "@/components/AnimatedPhoneMockup";
 import Navbar from "@/components/Navbar";
 import { motion } from "framer-motion";
@@ -25,8 +27,10 @@ export default function HomePage() {
     <main className="page-shell">
       <Navbar />
 
-      <section className="audit-grid border-b border-slate-200/80 transition-colors duration-500 dark:border-white/10">
-        <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 lg:grid-cols-[1.05fr_0.95fr] lg:py-28">
+      <section className="audit-grid relative overflow-hidden border-b border-slate-200/80 transition-colors duration-500 dark:border-white/10">
+        <AnimatedBackground />
+
+        <div className="relative z-10 mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 lg:grid-cols-[1.05fr_0.95fr] lg:py-28">
           <motion.div
             initial="hidden"
             animate="show"
@@ -35,24 +39,23 @@ export default function HomePage() {
               show: { transition: { staggerChildren: 0.1 } },
             }}
           >
-            <motion.div
-              variants={fadeUp}
-              className="
-                mb-6 inline-flex items-center gap-2 rounded-full border
-                border-teal-700/15 bg-white px-4 py-2 text-sm font-semibold
-                text-teal-800 shadow-sm transition-colors duration-500
-                dark:border-teal-300/20 dark:bg-white/5 dark:text-teal-200
-              "
-            >
-              <ShieldCheck size={16} />
-              Built for privacy-first credit underwriting
-            </motion.div>
+            <AnimatedBadge />
 
             <motion.h1
               variants={fadeUp}
               className="page-title max-w-4xl text-5xl font-semibold tracking-[-0.04em] md:text-7xl"
             >
-              Credit access for MSMEs without exposing business data.
+              Credit access for{" "}
+              <span className="relative inline-block">
+                MSMEs
+                <motion.span
+                  initial={{ scaleX: 0 }}
+                  animate={{ scaleX: 1 }}
+                  transition={{ delay: 0.65, duration: 0.7, ease: "easeOut" }}
+                  className="absolute -bottom-1 left-0 h-2 w-full origin-left rounded-full bg-teal-300/55 dark:bg-teal-400/35"
+                />
+              </span>{" "}
+              without exposing business data.
             </motion.h1>
 
             <motion.p
@@ -68,21 +71,31 @@ export default function HomePage() {
               variants={fadeUp}
               className="mt-8 flex flex-col gap-3 sm:flex-row"
             >
-              <Link
-                href="/dashboard"
-                className="primary-action inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold transition"
-              >
-                View MSME dashboard
-                <ArrowRight size={17} />
-              </Link>
+              <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
+                <Link
+                  href="/dashboard"
+                  className="primary-action group inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold transition"
+                >
+                  View MSME dashboard
+                  <ArrowRight
+                    size={17}
+                    className="transition-transform group-hover:translate-x-1"
+                  />
+                </Link>
+              </motion.div>
 
-              <Link
-                href="/bank"
-                className="secondary-action inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold transition"
-              >
-                Open lender portal
-                <Landmark size={17} />
-              </Link>
+              <motion.div whileHover={{ y: -2 }} whileTap={{ scale: 0.98 }}>
+                <Link
+                  href="/bank"
+                  className="secondary-action group inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold transition"
+                >
+                  Open lender portal
+                  <Landmark
+                    size={17}
+                    className="transition-transform group-hover:scale-110"
+                  />
+                </Link>
+              </motion.div>
             </motion.div>
 
             <motion.div
@@ -93,15 +106,25 @@ export default function HomePage() {
                 ["Private proofs", "No raw sales shared"],
                 ["Bank-ready", "Instant verification"],
                 ["Stellar rail", "USDC disbursement"],
-              ].map(([title, desc]) => (
-                <div key={title} className="surface-card rounded-2xl p-4">
+              ].map(([title, desc], index) => (
+                <motion.div
+                  key={title}
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.75 + index * 0.1, duration: 0.45 }}
+                  whileHover={{ y: -5, scale: 1.02 }}
+                  className="surface-card group rounded-2xl p-4"
+                >
+                  <div className="mb-3 h-1.5 w-10 rounded-full bg-teal-500/70 transition-all group-hover:w-16 dark:bg-teal-300/70" />
+
                   <p className="text-sm font-semibold text-slate-950 dark:text-white">
                     {title}
                   </p>
+
                   <p className="mt-1 text-xs leading-5 text-slate-500 dark:text-slate-400">
                     {desc}
                   </p>
-                </div>
+                </motion.div>
               ))}
             </motion.div>
           </motion.div>
@@ -118,7 +141,13 @@ export default function HomePage() {
       </section>
 
       <section className="page-section">
-        <div className="mb-8 max-w-2xl">
+        <motion.div
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55 }}
+          viewport={{ once: true, amount: 0.35 }}
+          className="mb-8 max-w-2xl"
+        >
           <p className="page-eyebrow text-sm font-semibold uppercase tracking-[0.2em]">
             How it works
           </p>
@@ -131,7 +160,7 @@ export default function HomePage() {
             Credence turns business data into verifiable private claims for
             underwriting, while sensitive records stay protected.
           </p>
-        </div>
+        </motion.div>
 
         <div className="grid gap-5 md:grid-cols-4">
           {[
@@ -155,16 +184,22 @@ export default function HomePage() {
               title: "Loan can be settled",
               desc: "After verification, approved credit can be disbursed through Stellar USDC.",
             },
-          ].map((item) => (
+          ].map((item, index) => (
             <motion.div
               key={item.title}
-              whileHover={{ y: -4 }}
-              transition={{ type: "spring", stiffness: 240, damping: 20 }}
-              className="surface-card rounded-2xl p-5"
+              initial={{ opacity: 0, y: 22 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: index * 0.08, duration: 0.5 }}
+              viewport={{ once: true, amount: 0.35 }}
+              whileHover={{ y: -6, scale: 1.015 }}
+              className="surface-card group rounded-2xl p-5"
             >
-              <div className="grid h-11 w-11 place-items-center rounded-xl bg-slate-100 text-slate-900 dark:bg-white/10 dark:text-teal-200">
+              <motion.div
+                whileHover={{ rotate: 5, scale: 1.08 }}
+                className="grid h-11 w-11 place-items-center rounded-xl bg-slate-100 text-slate-900 transition-colors duration-500 dark:bg-white/10 dark:text-teal-200"
+              >
                 <item.icon size={21} />
-              </div>
+              </motion.div>
 
               <h3 className="mt-5 text-lg font-semibold tracking-tight text-slate-950 dark:text-white">
                 {item.title}
@@ -173,14 +208,36 @@ export default function HomePage() {
               <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">
                 {item.desc}
               </p>
+
+              <div className="mt-5 h-1 w-10 rounded-full bg-teal-500/50 transition-all group-hover:w-20 dark:bg-teal-300/50" />
             </motion.div>
           ))}
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-5 pb-20">
-        <div className="rounded-[1.75rem] border border-slate-200 bg-slate-950 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.18)] transition-colors duration-500 dark:border-white/10 dark:bg-white/[0.045] dark:shadow-[0_24px_90px_rgba(0,0,0,0.32)] md:p-8">
-          <div className="grid gap-8 md:grid-cols-[0.9fr_1.1fr] md:items-center">
+        <motion.div
+          initial={{ opacity: 0, y: 24, scale: 0.98 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          viewport={{ once: true, amount: 0.25 }}
+          className="relative overflow-hidden rounded-[1.75rem] border border-slate-200 bg-slate-950 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.18)] transition-colors duration-500 dark:border-white/10 dark:bg-white/[0.045] dark:shadow-[0_24px_90px_rgba(0,0,0,0.32)] md:p-8"
+        >
+          <motion.div
+            animate={{
+              x: [0, 40, -20, 0],
+              y: [0, -20, 30, 0],
+              opacity: [0.18, 0.28, 0.18],
+            }}
+            transition={{
+              duration: 12,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="pointer-events-none absolute right-0 top-0 h-72 w-72 rounded-full bg-teal-300/25 blur-3xl"
+          />
+
+          <div className="relative z-10 grid gap-8 md:grid-cols-[0.9fr_1.1fr] md:items-center">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-teal-300">
                 Built for APAC credit flows
@@ -219,10 +276,15 @@ export default function HomePage() {
                   title: "USDC payout path",
                   desc: "Connect approval to Stellar-based settlement flows.",
                 },
-              ].map((item) => (
-                <div
+              ].map((item, index) => (
+                <motion.div
                   key={item.title}
-                  className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 transition hover:bg-white/[0.07]"
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: index * 0.08, duration: 0.45 }}
+                  viewport={{ once: true, amount: 0.35 }}
+                  whileHover={{ y: -4, backgroundColor: "rgba(255,255,255,0.08)" }}
+                  className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 transition"
                 >
                   <item.icon className="text-teal-300" size={20} />
 
@@ -231,11 +293,11 @@ export default function HomePage() {
                   <p className="mt-1 text-sm leading-6 text-slate-400">
                     {item.desc}
                   </p>
-                </div>
+                </motion.div>
               ))}
             </div>
           </div>
-        </div>
+        </motion.div>
       </section>
     </main>
   );
