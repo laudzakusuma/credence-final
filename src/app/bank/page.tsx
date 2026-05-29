@@ -4,7 +4,7 @@ import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import ProofBadge from "@/components/ProofBadge";
 import VerifierAuditLog from "@/components/VerifierAuditLog";
-import { CreditPassport, formatIDR, simulateStellarPayout } from "@/lib/data";
+import { CreditPassport, formatIDR } from "@/lib/data";
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -21,7 +21,16 @@ import { useSearchParams } from "next/navigation";
 import { Suspense, useEffect, useMemo, useState } from "react";
 import { toast } from "sonner";
 
-type Payout = ReturnType<typeof simulateStellarPayout>;
+type Payout = {
+  network: string;
+  asset: string;
+  amount: number;
+  destination: string;
+  source?: string;
+  txHash: string;
+  status: "success";
+  explorerUrl: string;
+};
 
 function BankVerifierContent() {
   const searchParams = useSearchParams();
@@ -73,15 +82,37 @@ function BankVerifierContent() {
     }
   }
 
-  function handlePayout() {
+  async function handlePayout() {
     if (!passport?.result.verified) {
       toast.error("Cannot approve payout for unverified proof");
       return;
     }
 
-    const result = simulateStellarPayout(stellarAddress, loanAmount);
-    setPayout(result);
-    toast.success("Stellar USDC payout simulated");
+    try {
+      const response = await fetch("/api/stellar/payout", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          destination: stellarAddress,
+          amount: loanAmount,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (!response.ok || !data.ok) {
+        throw new Error(data.error ?? "Failed to send Stellar payout");
+      }
+
+      setPayout(data.payout);
+      toast.success("Real Stellar testnet payout submitted");
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "Failed to submit payout"
+      );
+    }
   }
 
   return (

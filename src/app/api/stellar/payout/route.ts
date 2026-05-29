@@ -1,5 +1,13 @@
 import { NextResponse } from "next/server";
-import { simulateStellarPayout } from "@/lib/stellar";
+import {
+  Asset,
+  BASE_FEE,
+  Horizon,
+  Keypair,
+  Networks,
+  Operation,
+  TransactionBuilder,
+} from "@stellar/stellar-sdk";
 
 type Body = {
   destination?: string;
@@ -30,22 +38,66 @@ export async function POST(request: Request) {
       );
     }
 
-    const payout = simulateStellarPayout({
-      destination: body.destination,
-      amount: body.amount,
-      asset: "USDC",
-    });
+    const sourceSecret = process.env.STELLAR_SOURCE_SECRET;
+    const horizonUrl =
+      process.env.STELLAR_HORIZON_URL ?? "https://horizon-testnet.stellar.org";
+
+    if (!sourceSecret) {
+      return NextResponse.json(
+        {
+          ok: false,
+          error: "Missing STELLAR_SOURCE_SECRET environment variable",
+        },
+        { status: 500 }
+      );
+    }
+
+    const sourceKeypair = Keypair.fromSecret(sourceSecret);
+    const server = new Horizon.Server(horizonUrl);
+
+    const sourceAccount = await server.loadAccount(sourceKeypair.publicKey());
+
+    const amount = body.amount.toFixed(2);
+
+    const transaction = new TransactionBuilder(sourceAccount, {
+      fee: BASE_FEE,
+      networkPassphrase: Networks.TESTNET,
+    })
+      .addOperation(
+        Operation.payment({
+          destination: body.destination,
+          asset: Asset.native(),
+          amount,
+        })
+      )
+      .setTimeout(60)
+      .build();
+
+    transaction.sign(sourceKeypair);
+
+    const submitted = await server.submitTransaction(transaction);
 
     return NextResponse.json({
       ok: true,
-      payout,
+      payout: {
+        network: "Stellar Testnet",
+        asset: "XLM",
+        amount: Number(amount),
+        destination: body.destination,
+        source: sourceKeypair.publicKey(),
+        txHash: submitted.hash,
+        status: "success",
+        explorerUrl: `https://stellar.expert/explorer/testnet/tx/${submitted.hash}`,
+      },
     });
   } catch (error) {
     return NextResponse.json(
       {
         ok: false,
         error:
-          error instanceof Error ? error.message : "Failed to simulate payout",
+          error instanceof Error
+            ? error.message
+            : "Failed to submit Stellar testnet payout",
       },
       { status: 500 }
     );
