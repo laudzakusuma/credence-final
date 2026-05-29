@@ -43,7 +43,7 @@ function BankVerifierContent() {
   const [proofInput, setProofInput] = useState("");
   const [passport, setPassport] = useState<CreditPassport | null>(null);
   const [stellarAddress, setStellarAddress] = useState(
-    "GCBQWJYTW7JX2CREDENCEDEMOXMSMEWALLETSTELLARUSDC"
+    "GBYUT2UC7I5HBYZKYITERUSA2Z6YVFLB34JEKHBTHDPADNOFDGNK73WP"
   );
   const [loanAmount, setLoanAmount] = useState(5000);
   const [payout, setPayout] = useState<Payout | null>(null);
