@@ -45,7 +45,7 @@ function BankVerifierContent() {
   const [stellarAddress, setStellarAddress] = useState(
     "GBYUT2UC7I5HBYZKYITERUSA2Z6YVFLB34JEKHBTHDPADNOFDGNK73WP"
   );
-  const [loanAmount, setLoanAmount] = useState(5000);
+  const [loanAmount, setLoanAmount] = useState(5);
   const [payout, setPayout] = useState<Payout | null>(null);
 
   useEffect(() => {
