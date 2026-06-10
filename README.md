@@ -87,7 +87,8 @@ The lender does not receive:
 - QR proof payload
 - Bank verifier portal
 - Verifier audit log
-- Midnight Compact smart contract for proof commitments
+- Midnight Compact smart contract for private proof commitments
+- Stellar Soroban testnet registry contract
 - Real Stellar testnet payout flow
 - Light and dark mode UI
 - Contract deployment card
@@ -124,7 +125,10 @@ The lender does not receive:
    - customer identities exposed: 0
    - raw transaction rows exposed: 0
 
-6. **Stellar Testnet Payout**  
+6. **Stellar Soroban Registry**  
+   A verification reference can be anchored through the deployed Credence Registry contract on Stellar Testnet.
+
+7. **Stellar Testnet Payout**  
    Once verified, the lender can submit a real Stellar testnet payout to the MSME wallet.
 
 ---
@@ -240,9 +244,96 @@ src/app/api/stellar/payout/route.ts
 STELLAR_NETWORK=testnet
 STELLAR_HORIZON_URL=https://horizon-testnet.stellar.org
 STELLAR_SOURCE_SECRET=YOUR_STELLAR_TESTNET_SECRET_KEY
+
+NEXT_PUBLIC_STELLAR_CONTRACT_ID=CA6GNH3GORI6TK73F6F4OXQ7B3UGLXCZ4ZCVBEJDVZWHMSLPHX3E3E7A
+NEXT_PUBLIC_STELLAR_CONTRACT_LAB_URL=https://lab.stellar.org/r/testnet/contract/CA6GNH3GORI6TK73F6F4OXQ7B3UGLXCZ4ZCVBEJDVZWHMSLPHX3E3E7A
 ```
 
 The destination wallet entered in the UI must be a funded Stellar testnet public key starting with `G`.
+
+---
+
+## Stellar Soroban Testnet Contract
+
+Credence now includes a deployed **Stellar Soroban testnet registry contract** for privacy-preserving credit passport verification references.
+
+### Contract Details
+
+```txt
+Network: Stellar Testnet
+Contract Name: Credence Registry
+Contract ID: CA6GNH3GORI6TK73F6F4OXQ7B3UGLXCZ4ZCVBEJDVZWHMSLPHX3E3E7A
+Lab Link: https://lab.stellar.org/r/testnet/contract/CA6GNH3GORI6TK73F6F4OXQ7B3UGLXCZ4ZCVBEJDVZWHMSLPHX3E3E7A
+Deploy Transaction: https://stellar.expert/explorer/testnet/tx/ad3155fb0cd724f16812ac7554180542f7a35e8de049542b237b491f5e0f4819
+WASM Upload Transaction: https://stellar.expert/explorer/testnet/tx/76232e44c16d4f431bd38e6cb41c86f8db09ffb2a0d7ae13a3cebbec495f0f06
+Deployer Address: GCLTZZCAB6ALGM2KDKCBRWVOBWD3676K7TONKFIN4NURFSUOYXXEZ3YF
+WASM Hash: 2475443fcacd0fd7a879da2cf583fc08a4e4b42e81b232fb9e7907cbc5949719
+Contract Source: stellar-contract/contracts/credence_registry/src/lib.rs
+```
+
+### Contract Purpose
+
+The Credence Registry contract acts as a public Stellar testnet reference layer for MSME credit passport verification.
+
+The contract does **not** store raw MSME business data. Instead, it stores privacy-preserving commitments and verification state that can be referenced by lenders after reviewing a borrower's private credit passport.
+
+This gives Credence a Stellar-native smart contract layer for:
+
+- credit passport commitment registration
+- lender verification references
+- verification status updates
+- payout reference tracking
+- auditability without exposing raw borrower data
+
+### Exported Functions
+
+The deployed WASM exports three contract functions:
+
+```txt
+record_passport
+get_passport
+update_verification
+```
+
+### What the Soroban Contract Stores
+
+The contract stores only verification references and commitments:
+
+- proof ID commitment
+- merchant hash
+- private data commitment
+- lending criteria commitment
+- verification status
+- payout reference
+
+### What the Soroban Contract Never Stores
+
+The contract does not store:
+
+- raw sales records
+- exact revenue
+- exact growth percentage
+- customer names
+- order IDs
+- product-level sales data
+- private bank statements
+- sensitive borrower documents
+
+### Why Soroban Matters for Credence
+
+Stellar provides the financial execution and settlement layer for Credence.
+
+The Soroban contract turns Credence from a private credit scoring interface into a Stellar-native credit infrastructure prototype. After a lender verifies a credit passport, Credence can anchor a privacy-preserving verification reference on Stellar Testnet and connect that approved status to a Stellar payout flow.
+
+In short:
+
+```txt
+Private credit passport
+→ commitment-based verification
+→ Soroban registry reference
+→ Stellar testnet payout flow
+→ MSME receives financing
+```
 
 ---
 
@@ -260,13 +351,13 @@ The destination wallet entered in the UI must be a funded Stellar testnet public
 │  /api/proof/generate | /api/proof/verify | /api/stellar/payout│
 └─────────────────────────────────────────────────────────────┘
                               │
-             ┌────────────────┴────────────────┐
-             ▼                                 ▼
-┌───────────────────────────────┐   ┌───────────────────────────────┐
-│       Midnight Contract       │   │        Stellar Testnet         │
-│  Compact proof commitments    │   │  Server-side signed payout    │
-│  Local devnet deployment      │   │  Real testnet transaction     │
-└───────────────────────────────┘   └───────────────────────────────┘
+             ┌────────────────┼────────────────┐
+             ▼                ▼                ▼
+┌───────────────────────┐ ┌───────────────────────┐ ┌───────────────────────┐
+│   Midnight Contract   │ │ Stellar Soroban        │ │   Stellar Testnet      │
+│ Compact commitments   │ │ Credence Registry      │ │ Server-side payout     │
+│ Local devnet proof    │ │ Testnet contract ID    │ │ Real testnet tx        │
+└───────────────────────┘ └───────────────────────┘ └───────────────────────┘
 ```
 
 ---
@@ -299,6 +390,11 @@ The destination wallet entered in the UI must be a funded Stellar testnet public
 - node
 - indexer
 - wallet CLI
+- Stellar Soroban
+- Rust
+- WebAssembly/WASM
+- Stellar CLI
+- Stellar Testnet deployed contract
 
 ### Payments
 
@@ -329,6 +425,13 @@ credence-final/
 │   │   └── credence.compact
 │   ├── src/
 │   └── docs/
+├── stellar-contract/
+│   ├── contracts/
+│   │   └── credence_registry/
+│   │       └── src/
+│   │           └── lib.rs
+│   ├── Cargo.toml
+│   └── README.md
 ├── docs/
 │   └── midnight-deployment.md
 └── README.md
@@ -385,6 +488,9 @@ NEXT_PUBLIC_MIDNIGHT_DEPLOYED_AT=2026-05-25T02:09:14.516Z
 STELLAR_NETWORK=testnet
 STELLAR_HORIZON_URL=https://horizon-testnet.stellar.org
 STELLAR_SOURCE_SECRET=YOUR_STELLAR_TESTNET_SECRET_KEY
+
+NEXT_PUBLIC_STELLAR_CONTRACT_ID=CA6GNH3GORI6TK73F6F4OXQ7B3UGLXCZ4ZCVBEJDVZWHMSLPHX3E3E7A
+NEXT_PUBLIC_STELLAR_CONTRACT_LAB_URL=https://lab.stellar.org/r/testnet/contract/CA6GNH3GORI6TK73F6F4OXQ7B3UGLXCZ4ZCVBEJDVZWHMSLPHX3E3E7A
 ```
 
 Do not commit `.env.local`.
@@ -425,6 +531,50 @@ npm run cli
 
 ---
 
+## Running the Stellar Soroban Contract
+
+Go to the Stellar contract folder:
+
+```bash
+cd stellar-contract
+```
+
+Build the Soroban contract:
+
+```bash
+stellar contract build
+```
+
+The optimized WASM output is generated at:
+
+```txt
+target/wasm32v1-none/release/credence_registry.wasm
+```
+
+Generate and fund a Stellar testnet deployer identity:
+
+```bash
+stellar keys generate credence_deployer --network testnet --fund
+```
+
+Deploy the contract to Stellar Testnet:
+
+```bash
+stellar contract deploy \
+  --wasm target/wasm32v1-none/release/credence_registry.wasm \
+  --source-account credence_deployer \
+  --network testnet \
+  --alias credence_registry
+```
+
+Current deployed contract:
+
+```txt
+CA6GNH3GORI6TK73F6F4OXQ7B3UGLXCZ4ZCVBEJDVZWHMSLPHX3E3E7A
+```
+
+---
+
 ## Deployment
 
 ### Web App
@@ -459,6 +609,17 @@ Midnight local devnet deployment validated
 
 The Stellar payout route submits real testnet transactions using a server-side secret stored in Vercel environment variables.
 
+### Stellar Soroban Contract
+
+The Credence Registry contract is deployed on Stellar Testnet.
+
+```txt
+Contract ID: CA6GNH3GORI6TK73F6F4OXQ7B3UGLXCZ4ZCVBEJDVZWHMSLPHX3E3E7A
+Lab Link: https://lab.stellar.org/r/testnet/contract/CA6GNH3GORI6TK73F6F4OXQ7B3UGLXCZ4ZCVBEJDVZWHMSLPHX3E3E7A
+Deploy Transaction: https://stellar.expert/explorer/testnet/tx/ad3155fb0cd724f16812ac7554180542f7a35e8de049542b237b491f5e0f4819
+WASM Upload Transaction: https://stellar.expert/explorer/testnet/tx/76232e44c16d4f431bd38e6cb41c86f8db09ffb2a0d7ae13a3cebbec495f0f06
+```
+
 ---
 
 ## Why Credence Matters
@@ -483,11 +644,14 @@ Implemented:
 - QR proof payload
 - Midnight Compact contract
 - Midnight local devnet deployment
+- Stellar Soroban testnet registry contract
+- Stellar Testnet contract deployment
 - real Stellar testnet payout
 - Vercel deployment
 
 Future improvements:
 
+- connect frontend proof generation directly to Soroban contract invocation
 - deploy Midnight contract to public Preprod
 - integrate real marketplace APIs
 - support real USDC asset trustlines
