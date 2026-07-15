@@ -63,7 +63,7 @@ export default function DashboardPage() {
             href="/generate-proof"
             className="primary-action inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold transition"
           >
-            Generate passport
+            Generate Credit passport
             <ArrowRight size={17} />
           </Link>
         </motion.div>
@@ -94,9 +94,9 @@ export default function DashboardPage() {
           />
 
           <StatCard
-            label="Proof readiness"
+            label="Credit readiness"
             value="Eligible"
-            helper="Ready for lender review"
+            helper="Ready for lender evaluation"
             icon={CheckCircle2}
             tone="green"
           />
@@ -175,26 +175,28 @@ export default function DashboardPage() {
             className="surface-card rounded-[1.75rem] p-6"
           >
             <h2 className="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">
-              Proof abilities
+              What lenders can verify
             </h2>
             <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
-              These statements can be proven without revealing raw transaction
-              records.
+              Lenders can verify these conditions without accessing private business records.
             </p>
 
             <div className="mt-6 space-y-3">
               {[
-                `Revenue above ${formatIDR(10000000)}`,
-                "Growth above 20%",
-                "Customer identities hidden",
-                "Transaction rows hidden",
-                "Lender can verify instantly",
+                "Revenue requirement satisfied",
+                "Growth requirement satisfied",
+                "Customer identities remain private",
+                "Raw marketplace records never shared",
+                "Credit eligibility ready for verification",
               ].map((item) => (
                 <div
                   key={item}
                   className="muted-surface flex items-center gap-3 rounded-xl p-4"
                 >
-                  <CheckCircle2 className="text-emerald-600 dark:text-emerald-300" size={18} />
+                  <CheckCircle2
+                    className="text-emerald-600 dark:text-emerald-300"
+                    size={18}
+                  />
                   <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
                     {item}
                   </p>
@@ -206,7 +208,7 @@ export default function DashboardPage() {
               href="/generate-proof"
               className="primary-action mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold transition"
             >
-              Create private proof
+              Generate Credit Passport
               <ArrowRight size={17} />
             </Link>
           </motion.div>
