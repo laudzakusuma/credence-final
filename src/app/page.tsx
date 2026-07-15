@@ -62,9 +62,7 @@ export default function HomePage() {
               variants={fadeUp}
               className="page-desc mt-6 max-w-2xl text-lg leading-8"
             >
-              Credence lets small businesses prove revenue, growth, and
-              repayment readiness to lenders while keeping transactions,
-              customer names, and marketplace records private.
+              Credence evaluates private business data and issues a privacy-preserving Credit Passport that lenders can verify without accessing raw transactions.
             </motion.p>
 
             <motion.div
@@ -105,7 +103,7 @@ export default function HomePage() {
               {[
                 ["Private proofs", "No raw sales shared"],
                 ["Bank-ready", "Instant verification"],
-                ["Stellar rail", "USDC disbursement"],
+                ["Stellar rail", "Stellar Testnet Settlement"],
               ].map(([title, desc], index) => (
                 <motion.div
                   key={title}
@@ -171,13 +169,13 @@ export default function HomePage() {
             },
             {
               icon: LockKeyhole,
-              title: "Private facts are computed",
-              desc: "Revenue and growth checks are converted into a proof-ready commitment.",
+              title: "Eligibility is evaluated",
+              desc: "Business data is evaluated against the lender's underwriting policy and transformed into a privacy-preserving commitment.",
             },
             {
               icon: EyeOff,
-              title: "Selective proof is shared",
-              desc: "The business chooses what to prove without revealing transaction details.",
+              title: "Credit Passport is issued",
+              desc: "The lender receives only the Credit Passport containing verification results and privacy-preserving commitments.",
             },
             {
               icon: Wallet,
@@ -258,13 +256,13 @@ export default function HomePage() {
               {[
                 {
                   icon: Banknote,
-                  title: "Credit threshold proof",
-                  desc: "Prove revenue requirements without revealing exact revenue.",
+                  title: "Credit eligibility",
+                  desc: "Evaluate revenue eligibility without revealing exact revenue.",
                 },
                 {
                   icon: ShieldCheck,
-                  title: "Confidential verification",
-                  desc: "Use Midnight-style proof commitments and selective disclosure.",
+                  title: "Privacy-preserving commitments",
+                  desc: "Midnight stores commitments instead of sensitive business records.",
                 },
                 {
                   icon: Landmark,
