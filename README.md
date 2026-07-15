@@ -1,6 +1,6 @@
 # Credence
 
-**Private credit passport infrastructure for APAC MSMEs.**
+**Private Credit Passport infrastructure for APAC MSMEs.**
 
 Credence helps micro, small, and medium enterprises prove creditworthiness to banks and lenders without exposing raw sales records, customer identities, exact revenue, or sensitive business data.
 
@@ -10,14 +10,14 @@ Live demo: https://credence-six-zeta.vercel.app
 
 ## Overview
 
-Many MSMEs in Asia Pacific already have strong business signals from marketplaces, bank statements, e-wallet flows, invoices, and trade activity. However, they often struggle to access formal financing because lenders require trusted financial records, while businesses are reluctant to share sensitive raw data.
+Many MSMEs in Asia Pacific already generate strong business signals through marketplaces, bank statements, e-wallet flows, invoices, and trade activity. However, they often struggle to access formal financing: lenders require trusted financial records, while businesses are reluctant to share sensitive raw data.
 
-Credence solves this by turning private business records into a **verifiable credit passport**.
+Credence resolves this by evaluating private business signals against a lender's underwriting policy and issuing the result as a **Credit Passport** — a privacy-preserving artifact a lender can verify without ever seeing the underlying data.
 
-Instead of sending raw sales rows to a lender, an MSME can prove statements such as:
+Instead of sending raw sales rows to a lender, an MSME's business signals are evaluated so a lender can confirm statements such as:
 
-- Revenue is above a selected threshold.
-- Growth is above a selected percentage.
+- Revenue meets the lender's minimum revenue requirement.
+- Growth meets the lender's minimum growth requirement.
 - Raw transaction rows remain hidden.
 - Customer identities remain hidden.
 - Lenders can verify eligibility instantly.
@@ -55,9 +55,9 @@ Credence provides a privacy-first alternative.
 
 ## Solution
 
-Credence creates a **private credit passport** for MSMEs.
+Credence issues a **Credit Passport** for each MSME.
 
-The MSME selects lending criteria, such as minimum revenue, growth percentage, and reporting period. Credence then generates a proof package that allows a lender to verify whether the MSME satisfies the criteria without seeing the underlying sales data.
+The lender defines underwriting criteria — minimum revenue requirement, minimum growth requirement, and evaluation period. Credence evaluates the MSME's private business signals against that policy and produces a Credit Passport that lets the lender verify eligibility without seeing the underlying sales data.
 
 The lender receives:
 
@@ -82,12 +82,12 @@ The lender does not receive:
 ## Key Features
 
 - MSME dashboard for credit readiness
-- Private credit passport generation
-- Animated private proof engine
-- QR proof payload
+- Private Credit Passport generation
+- Animated Credit Passport generation flow
+- QR Credit Passport payload
 - Bank verifier portal
 - Verifier audit log
-- Midnight Compact smart contract for private proof commitments
+- Midnight Compact smart contract for private Credit Passport commitments
 - Stellar Soroban testnet registry contract
 - Real Stellar testnet payout flow
 - Light and dark mode UI
@@ -96,46 +96,69 @@ The lender does not receive:
 
 ---
 
+## Product Flow
+
+```txt
+Business Dataset
+  ↓
+Business Signal Extraction
+  ↓
+Lender Underwriting Policy
+  ↓
+Privacy Evaluation
+  ↓
+Credit Passport Generation
+  ↓
+Bank Verification
+  ↓
+Stellar Testnet Payout
+```
+
+The lender's underwriting policy (minimum revenue requirement, minimum growth requirement, evaluation period) is not business data — it is the criteria Credence evaluates business signals against. Credence never asks the MSME to manually declare its own revenue as a criterion; the MSME's private signals are evaluated against the lender's policy.
+
+---
+
 ## Demo Flow
 
-1. **Landing Page**  
-   Explains Credence as private credit infrastructure for MSMEs.
+1. **Landing Page**
+   Explains Credence as private Credit Passport infrastructure for MSMEs.
 
-2. **MSME Dashboard**  
-   Shows private revenue readiness, growth, proof abilities, and Midnight contract deployment information.
+2. **MSME Dashboard**
+   Shows private revenue readiness, growth, Credit Passport eligibility, and Midnight contract deployment information.
 
-3. **Generate Proof**  
-   The MSME selects minimum revenue, minimum growth, and period length.
+3. **Generate Credit Passport**
+   In this demo, the lender's underwriting policy — minimum revenue requirement, minimum growth requirement, and evaluation period — is configured directly in the app to simulate a lender's requirements.
 
-   Credence then runs a private proof flow:
-   - reading private sales signals
-   - creating a data commitment
-   - generating a proof commitment
-   - preparing a bank-verifiable QR package
+   Credence then runs a private evaluation flow:
+   - importing the marketplace transaction dataset (demo data; live marketplace API integration is a planned future improvement)
+   - extracting business signals
+   - evaluating signals against the configured lender underwriting policy
+   - creating a data commitment and a proof commitment
+   - preparing a bank-verifiable Credit Passport package (QR-encoded)
 
-4. **Bank Verifier Portal**  
-   The lender receives a proof payload and verifies it without seeing raw business records.
+4. **Bank Verifier Portal**
+   The lender receives the Credit Passport and verifies it without seeing raw business records.
 
-5. **Verifier Audit Trail**  
+5. **Verifier Audit Trail**
    The bank sees what was verified:
-   - proof payload parsed
+   - Credit Passport parsed
    - Midnight commitment detected
-   - revenue threshold verified
-   - growth requirement verified
+   - revenue requirement verified against lender underwriting policy
+   - growth requirement verified against lender underwriting policy
    - customer identities exposed: 0
    - raw transaction rows exposed: 0
 
-6. **Stellar Soroban Registry**  
+6. **Stellar Soroban Registry**
    A verification reference can be anchored through the deployed Credence Registry contract on Stellar Testnet.
 
-7. **Stellar Testnet Payout**  
+7. **Stellar Testnet Payout**
    Once verified, the lender can submit a real Stellar testnet payout to the MSME wallet.
 
 ---
 
 ## Midnight Integration
 
-Credence includes a Midnight Compact smart contract that registers privacy-preserving credit passport commitments.
+Credence includes a Midnight Compact smart contract that registers privacy-preserving Credit Passport commitments.
 
 ### Contract Source
 
@@ -153,7 +176,7 @@ revokeCreditPassport
 
 ### What the Contract Stores
 
-The contract stores only public commitments and proof status:
+The contract stores only public commitments and Credit Passport status:
 
 - Credit Passport ID hash
 - merchant commitment
@@ -218,14 +241,14 @@ Note: the current Midnight deployment is a local devnet deployment, not a public
 
 Credence includes a **real Stellar testnet payout flow**.
 
-After a lender verifies the credit passport, the bank portal can submit a Stellar testnet payment from a server-side source account to the MSME destination wallet.
+After a lender verifies the Credit Passport, the bank portal can submit a Stellar testnet payment from a server-side source account to the MSME destination wallet.
 
 The Stellar source secret is stored only as a server-side environment variable and is never exposed to the frontend.
 
 ### Stellar Flow
 
 ```txt
-Verified proof
+Verified Credit Passport
 → lender approves payout
 → Vercel API route signs transaction server-side
 → Stellar testnet transaction submitted
@@ -255,7 +278,7 @@ The destination wallet entered in the UI must be a funded Stellar testnet public
 
 ## Stellar Soroban Testnet Contract
 
-Credence now includes a deployed **Stellar Soroban testnet registry contract** for privacy-preserving credit passport verification references.
+Credence includes a deployed **Stellar Soroban testnet registry contract** for privacy-preserving Credit Passport verification references.
 
 ### Contract Details
 
@@ -273,13 +296,13 @@ Contract Source: stellar-contract/contracts/credence_registry/src/lib.rs
 
 ### Contract Purpose
 
-The Credence Registry contract acts as a public Stellar testnet reference layer for MSME credit passport verification.
+The Credence Registry contract acts as a public Stellar testnet reference layer for MSME Credit Passport verification.
 
-The contract does **not** store raw MSME business data. Instead, it stores privacy-preserving commitments and verification state that can be referenced by lenders after reviewing a borrower's private credit passport.
+The contract does **not** store raw MSME business data. Instead, it stores privacy-preserving commitments and verification state that can be referenced by lenders after reviewing a borrower's Credit Passport.
 
 This gives Credence a Stellar-native smart contract layer for:
 
-- credit passport commitment registration
+- Credit Passport commitment registration
 - lender verification references
 - verification status updates
 - payout reference tracking
@@ -323,12 +346,12 @@ The contract does not store:
 
 Stellar provides the financial execution and settlement layer for Credence.
 
-The Soroban contract turns Credence from a private credit scoring interface into a Stellar-native credit infrastructure prototype. After a lender verifies a credit passport, Credence can anchor a privacy-preserving verification reference on Stellar Testnet and connect that approved status to a Stellar payout flow.
+The Soroban contract turns Credence from a private credit scoring interface into a Stellar-native credit infrastructure prototype. After a lender verifies a Credit Passport, Credence can anchor a privacy-preserving verification reference on Stellar Testnet and connect that approved status to a Stellar payout flow.
 
 In short:
 
 ```txt
-Private credit passport
+Privacy-preserving Credit Passport
 → commitment-based verification
 → Soroban registry reference
 → Stellar testnet payout flow
@@ -342,7 +365,8 @@ Private credit passport
 ```txt
 ┌─────────────────────────────────────────────────────────────┐
 │                        Next.js Frontend                     │
-│  Landing Page | MSME Dashboard | Generate Proof | Bank Portal│
+│ Landing Page | MSME Dashboard | Generate Credit Passport |   │
+│                       Bank Portal                            │
 └─────────────────────────────────────────────────────────────┘
                               │
                               ▼
@@ -372,15 +396,15 @@ Private credit passport
 - Framer Motion
 - Recharts
 - Lucide Icons
-- QR proof payload
+- QR Credit Passport payload
 
 ### Backend
 
 - Next.js API routes
-- TypeScript proof simulator
-- proof generation API
-- proof verification API
-- real Stellar testnet payout API
+- TypeScript proof/commitment simulator
+- Credit Passport generation API (`/api/proof/generate`)
+- Credit Passport verification API (`/api/proof/verify`)
+- real Stellar testnet payout API (`/api/stellar/payout`)
 
 ### Smart Contract
 
@@ -436,6 +460,8 @@ credence-final/
 │   └── midnight-deployment.md
 └── README.md
 ```
+
+Note: the `generate-proof/` route and `api/proof/` API folder are the underlying code paths for the Credit Passport generation and verification flow; only the user-facing terminology has changed.
 
 ---
 
@@ -607,7 +633,7 @@ Midnight local devnet deployment validated
 
 ### Stellar
 
-The Stellar payout route submits real testnet transactions using a server-side secret stored in Vercel environment variables.
+The Stellar payout route submits real testnet transactions once a lender approves a Credit Passport, using a server-side secret stored in Vercel environment variables.
 
 ### Stellar Soroban Contract
 
@@ -626,7 +652,7 @@ WASM Upload Transaction: https://stellar.expert/explorer/testnet/tx/76232e44c16d
 
 Credence helps MSMEs access credit without sacrificing business privacy.
 
-It gives lenders a way to verify underwriting criteria while protecting the borrower’s most sensitive commercial data.
+It gives lenders a way to verify underwriting criteria while protecting the borrower's most sensitive commercial data through a single Credit Passport, rather than raw record exports.
 
 This is especially relevant for APAC markets, where many MSMEs have real sales activity but lack formal credit history or do not want to expose full business records to lenders.
 
@@ -638,10 +664,10 @@ Implemented:
 
 - Next.js frontend
 - dashboard
-- proof generation flow
+- Credit Passport generation flow
 - bank verifier portal
 - verifier audit trail
-- QR proof payload
+- QR Credit Passport payload
 - Midnight Compact contract
 - Midnight local devnet deployment
 - Stellar Soroban testnet registry contract
@@ -651,7 +677,7 @@ Implemented:
 
 Future improvements:
 
-- connect frontend proof generation directly to Soroban contract invocation
+- connect frontend Credit Passport generation directly to Soroban contract invocation
 - deploy Midnight contract to public Preprod
 - integrate real marketplace APIs
 - support real USDC asset trustlines
@@ -664,4 +690,4 @@ Future improvements:
 
 ## Tagline
 
-**Credence lets MSMEs prove they are creditworthy without exposing raw business data.**
+**Credence lets MSMEs prove they are creditworthy through a private Credit Passport — without exposing raw business data.**
