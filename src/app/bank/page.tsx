@@ -414,10 +414,10 @@ function BankVerifierContent() {
                     <Banknote className="text-amber-700 dark:text-amber-300" size={24} />
                     <div>
                       <h3 className="text-xl font-semibold tracking-tight text-slate-950 dark:text-white">
-                        Approve Stellar USDC loan
+                        Approve Loan via Stellar
                       </h3>
                       <p className="text-sm text-slate-600 dark:text-slate-400">
-                        Simulate payout after successful verification.
+                        Submit a real Stellar testnet transaction after successful verification.
                       </p>
                     </div>
                   </div>
@@ -467,7 +467,7 @@ function BankVerifierContent() {
                       <Wallet className="text-emerald-700 dark:text-emerald-300" size={24} />
                       <div>
                         <h3 className="text-xl font-semibold tracking-tight text-emerald-950 dark:text-emerald-100">
-                          Payout successful
+                          The transaction has been successfully submitted to the Stellar Testnet.
                         </h3>
                         <p className="text-sm text-slate-600 dark:text-slate-400">
                           {payout.amount} {payout.asset} sent on{" "}
