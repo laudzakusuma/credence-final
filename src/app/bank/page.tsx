@@ -130,13 +130,11 @@ function BankVerifierContent() {
           </p>
 
           <h1 className="page-title mt-3 text-4xl font-semibold tracking-[-0.035em] md:text-5xl">
-            Verify credit passport
+            Privacy-Protected Credit Assessment
           </h1>
 
           <p className="page-desc mt-4 max-w-2xl text-base leading-8">
-            Lenders can verify eligibility criteria without seeing private
-            transactions, customer identities, or business-sensitive sales
-            details.
+            Verify an MSME's Credit Passport without accessing raw financial records, customer identities, or confidential business information.
           </p>
         </motion.div>
 
@@ -153,10 +151,10 @@ function BankVerifierContent() {
 
               <div>
                 <h2 className="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">
-                  Submit proof
+                  Submit Credit Passport
                 </h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400">
-                  Paste or receive a private credit passport.
+                  Upload or paste a privacy-protected Credit Passport submitted by the MSME.
                 </p>
               </div>
             </div>
@@ -166,7 +164,7 @@ function BankVerifierContent() {
                 <div className="flex items-start justify-between gap-4">
                   <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.18em] text-teal-700 dark:text-teal-300">
-                      Proof detected
+                      Credit Passport Received
                     </p>
                     <h3 className="mt-2 text-lg font-semibold text-slate-950 dark:text-white">
                       Private credit passport payload
@@ -178,7 +176,7 @@ function BankVerifierContent() {
                   </div>
 
                   <div className="rounded-full border border-emerald-200 bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700 dark:border-emerald-300/15 dark:bg-emerald-400/10 dark:text-emerald-300">
-                    Ready
+                    Ready for Verification
                   </div>
                 </div>
 
@@ -225,7 +223,7 @@ function BankVerifierContent() {
             <div>
               <div className="mb-2 flex items-center justify-between">
                 <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                  Proof payload
+                  Credit Passport Payload
                 </label>
 
                 <span className="text-xs text-slate-500 dark:text-slate-400">
@@ -245,7 +243,7 @@ function BankVerifierContent() {
               onClick={handleVerify}
               className="primary-action mt-4 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold transition"
             >
-              Verify proof
+              Verify Credit Passport
               <ShieldCheck size={17} />
             </button>
 
@@ -274,7 +272,7 @@ function BankVerifierContent() {
                   </div>
 
                   <h2 className="mt-6 text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">
-                    Waiting for proof
+                    Waiting for Credit Passport
                   </h2>
 
                   <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-slate-600 dark:text-slate-400">
@@ -299,39 +297,114 @@ function BankVerifierContent() {
                   <VerifierAuditLog verified={passport.result.verified} />
                 </div>
 
-                <div className="mt-6 grid gap-4 md:grid-cols-2">
-                  <div className="muted-surface rounded-2xl p-4">
-                    <p className="text-sm text-slate-500 dark:text-slate-400">
-                      Revenue criteria
-                    </p>
-                    <p className="mt-2 text-xl font-semibold text-slate-950 dark:text-white">
-                      ≥ {formatIDR(passport.criteria.minRevenue)}
-                    </p>
-                    <div className="mt-3 flex items-center gap-2 text-sm text-emerald-700 dark:text-emerald-300">
-                      <CheckCircle2 size={16} />
-                      Actual revenue hidden
+                <div className="mt-6 space-y-4">
+                  {/* Eligibility Summary */}
+                  <div className="rounded-2xl border border-emerald-200 bg-emerald-50 p-5 dark:border-emerald-400/20 dark:bg-emerald-400/10">
+                    <div className="flex items-start gap-3">
+                      <CheckCircle2
+                        className="mt-1 text-emerald-700 dark:text-emerald-300"
+                        size={22}
+                      />
+
+                      <div>
+                        <h3 className="text-xl font-semibold text-slate-950 dark:text-white">
+                          Credit Assessment Result
+                        </h3>
+
+                        <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">
+                          This business satisfies the lender's credit eligibility policy while
+                          keeping all financial records private.
+                        </p>
+                      </div>
                     </div>
                   </div>
 
-                  <div className="muted-surface rounded-2xl p-4">
-                    <p className="text-sm text-slate-500 dark:text-slate-400">
-                      Growth criteria
-                    </p>
-                    <p className="mt-2 text-xl font-semibold text-slate-950 dark:text-white">
-                      ≥ {passport.criteria.minGrowth}%
-                    </p>
-                    <div className="mt-3 flex items-center gap-2 text-sm text-emerald-700 dark:text-emerald-300">
-                      <CheckCircle2 size={16} />
-                      Actual growth hidden
+                  {/* Eligibility Criteria */}
+                  <div className="grid gap-4 md:grid-cols-2">
+                    <div className="muted-surface rounded-2xl p-4">
+                      <p className="text-sm text-slate-500 dark:text-slate-400">
+                        Revenue Policy
+                      </p>
+
+                      <p className="mt-2 text-xl font-semibold text-slate-950 dark:text-white">
+                        ≥ {formatIDR(passport.criteria.minRevenue)}
+                      </p>
+
+                      <div className="mt-3 flex items-center gap-2 text-sm text-emerald-700 dark:text-emerald-300">
+                        <CheckCircle2 size={16} />
+                        Requirement Passed
+                      </div>
+                    </div>
+
+                    <div className="muted-surface rounded-2xl p-4">
+                      <p className="text-sm text-slate-500 dark:text-slate-400">
+                        Business Growth Policy
+                      </p>
+
+                      <p className="mt-2 text-xl font-semibold text-slate-950 dark:text-white">
+                        ≥ {passport.criteria.minGrowth}%
+                      </p>
+
+                      <div className="mt-3 flex items-center gap-2 text-sm text-emerald-700 dark:text-emerald-300">
+                        <CheckCircle2 size={16} />
+                        Requirement Passed
+                      </div>
                     </div>
                   </div>
 
-                  <div className="muted-surface rounded-2xl p-4 md:col-span-2">
+                  {/* Privacy */}
+                  <div className="muted-surface rounded-2xl p-5">
+                    <h3 className="text-lg font-semibold text-slate-950 dark:text-white">
+                      Privacy Protection
+                    </h3>
+
+                    <div className="mt-4 grid gap-3 md:grid-cols-3">
+                      <div>
+                        <p className="text-sm text-slate-500 dark:text-slate-400">
+                          Financial Records
+                        </p>
+
+                        <p className="mt-1 font-semibold text-emerald-700 dark:text-emerald-300">
+                          Hidden
+                        </p>
+                      </div>
+
+                      <div>
+                        <p className="text-sm text-slate-500 dark:text-slate-400">
+                          Customer Data
+                        </p>
+
+                        <p className="mt-1 font-semibold text-emerald-700 dark:text-emerald-300">
+                          Protected
+                        </p>
+                      </div>
+
+                      <div>
+                        <p className="text-sm text-slate-500 dark:text-slate-400">
+                          Privacy Layer
+                        </p>
+
+                        <p className="mt-1 font-semibold text-slate-950 dark:text-white">
+                          Midnight Network
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Technical Details */}
+                  <div className="muted-surface rounded-2xl p-5">
                     <p className="text-sm text-slate-500 dark:text-slate-400">
-                      Commitment
+                      Midnight Privacy Commitment
                     </p>
-                    <p className="mt-2 break-all font-mono text-sm text-teal-800 dark:text-teal-300">
+
+                    <p className="mt-2 break-all rounded-xl bg-white p-3 font-mono text-sm text-teal-700 dark:bg-white/5 dark:text-teal-300">
                       {passport.commitment}
+                    </p>
+
+                    <p className="mt-3 text-sm text-slate-600 dark:text-slate-400">
+                      This cryptographic commitment allows lenders to verify eligibility
+                      without accessing raw marketplace transactions or confidential business
+                      data.
                     </p>
                   </div>
                 </div>
