@@ -35,7 +35,7 @@ export ledger lastUpdatedAt: Opaque<"string">;
   Register a private credit passport proof.
 
   Public inputs:
-  - proof id hash
+  - Credit Passport ID hash
   - merchant commitment
   - private data commitment
   - selected criteria commitment

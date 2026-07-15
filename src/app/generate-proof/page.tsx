@@ -3,6 +3,7 @@
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import ProofBadge from "@/components/ProofBadge";
+import { Loader2 } from "lucide-react";
 import ProofGenerationSteps from "@/components/ProofGenerationSteps";
 import {
   createCreditPassport,
@@ -20,6 +21,10 @@ import {
   ShieldCheck,
   SlidersHorizontal,
   TrendingUp,
+  Database,
+  Calculator,
+  BadgeCheck,
+  ArrowDown,
 } from "lucide-react";
 import { QRCodeCanvas } from "qrcode.react";
 import { useMemo, useState } from "react";
@@ -87,16 +92,17 @@ export default function GenerateProofPage() {
           className="mb-8"
         >
           <p className="page-eyebrow text-sm font-semibold uppercase tracking-[0.18em]">
-            Generate Proof
+            Credit Evaluation
           </p>
 
           <h1 className="page-title mt-3 text-4xl font-semibold tracking-[-0.035em] md:text-5xl">
-            Create a private credit passport
+            Generate a Privacy-Protected Credit Passport
           </h1>
 
           <p className="page-desc mt-4 max-w-2xl text-base leading-8">
-            Select the criteria to prove. Credence reveals whether the business
-            meets the requirement without exposing the underlying sales data.
+            Credence evaluates verified marketplace transaction data against the lender’s
+            eligibility policy. Only the verification result is shared—never the raw
+            business records.
           </p>
         </motion.div>
 
@@ -106,26 +112,75 @@ export default function GenerateProofPage() {
             animate={{ opacity: 1, y: 0 }}
             className="surface-card rounded-[1.75rem] p-6"
           >
+            <div className="mb-8 rounded-3xl border border-emerald-200 bg-emerald-50 p-6">
+              <div className="flex items-center justify-between">
+                <div>
+                  <h2 className="text-xl font-semibold text-emerald-900">
+                    Verified Business Data
+                  </h2>
+                  <p className="mt-1 text-sm text-emerald-700">
+                    Representative marketplace transaction dataset used for evaluation.
+                  </p>
+                </div>
+                <ShieldCheck className="h-8 w-8 text-emerald-600" />
+              </div>
+              <div className="mt-6 grid grid-cols-2 gap-5">
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-slate-500">
+                    Source
+                  </p>
+                  <p className="font-medium">
+                    Marketplace Transaction Dataset
+                  </p>
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-slate-500">
+                    Status
+                  </p>
+                  <p className="font-semibold text-emerald-700">
+                    Imported Successfully
+                  </p>
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-slate-500">
+                    Platforms
+                  </p>
+                  <p>
+                    Tokopedia • Shopee • Lazada
+                  </p>
+                </div>
+                <div>
+                  <p className="text-xs uppercase tracking-wide text-slate-500">
+                    Imported Records
+                  </p>
+                  <p>
+                    {sampleSales.length} Transactions
+                  </p>
+                </div>
+              </div>
+
+            </div>
             <div className="mb-6 flex items-center gap-3">
               <div className="icon-tile-cyan rounded-xl p-3">
                 <SlidersHorizontal size={22} />
               </div>
-
               <div>
                 <h2 className="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">
-                  Proof criteria
+                  Loan Eligibility Policy
                 </h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400">
-                  Selective disclosure configuration.
+                  The lender defines the minimum requirements. Credence evaluates verified marketplace transaction data against these policies before generating a privacy-preserving Credit Passport.
                 </p>
               </div>
+              <div className="mt-3 inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
+                  Configured by Lender
+              </div>
             </div>
-
             <div className="space-y-7">
               <div>
                 <div className="mb-3 flex items-center justify-between">
                   <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Minimum revenue
+                    Required Monthly Revenue
                   </label>
                   <span className="text-sm font-semibold text-teal-700 dark:text-teal-300">
                     {formatIDR(minRevenue)}
@@ -147,7 +202,7 @@ export default function GenerateProofPage() {
               <div>
                 <div className="mb-3 flex items-center justify-between">
                   <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Minimum growth
+                    Required Business Growth
                   </label>
                   <span className="text-sm font-semibold text-emerald-700 dark:text-emerald-300">
                     {minGrowth}%
@@ -169,7 +224,7 @@ export default function GenerateProofPage() {
               <div>
                 <div className="mb-3 flex items-center justify-between">
                   <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Period
+                    Evaluation Period
                   </label>
                   <span className="text-sm font-semibold text-amber-700 dark:text-amber-300">
                     {periodDays} days
@@ -187,16 +242,29 @@ export default function GenerateProofPage() {
                   className="w-full disabled:opacity-50"
                 />
               </div>
+              <div className="mt-6 rounded-xl border border-blue-200 bg-blue-50 p-4">
+                  <p className="text-sm text-blue-700">
+                      These controls simulate the lender's loan eligibility policy.
 
+                      They do not modify the MSME's business records.
+                  </p>
+              </div>
               <button
                 onClick={handleGenerateProof}
                 disabled={isGenerating}
                 className="primary-action inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {isGenerating
-                  ? "Generating private proof..."
-                  : "Generate proof package"}
-                <ShieldCheck size={17} />
+                {isGenerating ? (
+                  <>
+                    <Loader2 className="h-4 w-4 animate-spin" />
+                    Evaluating Business Data...
+                  </>
+                ) : (
+                  <>
+                    Evaluate & Generate Credit Passport
+                    <ShieldCheck size={17} />
+                  </>
+                )}
               </button>
             </div>
 
@@ -207,9 +275,11 @@ export default function GenerateProofPage() {
                   size={18}
                 />
                 <p className="text-sm leading-6 text-slate-600 dark:text-slate-400">
-                  Private records are transformed into a proof commitment. The
-                  lender only receives the selected criteria, commitment hash,
-                  and verification status.
+                  Verified marketplace transaction data is transformed into a
+                  privacy-preserving cryptographic commitment.
+
+                  Only eligibility claims—not raw transaction history,
+                  customer identities, or exact revenue—are shared with lenders.
                 </p>
               </div>
             </div>
@@ -231,12 +301,15 @@ export default function GenerateProofPage() {
                   </div>
 
                   <h2 className="mt-6 text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">
-                    Your credit passport will appear here
+                    Your Privacy-Protected Credit Passport
                   </h2>
 
                   <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-slate-600 dark:text-slate-400">
-                    Generate a proof package to create a QR code that lenders
-                    can verify without accessing raw marketplace data.
+                    Generate a Credit Passport to evaluate verified                     
+                    marketplace transaction data against the lender's policy.
+
+                    Only privacy-preserving verification results
+                    will be shared.
                   </p>
                 </div>
               </div>
@@ -265,7 +338,7 @@ export default function GenerateProofPage() {
                   <div className="space-y-4">
                     <div className="muted-surface rounded-2xl p-4">
                       <p className="text-sm text-slate-500 dark:text-slate-400">
-                        Proof ID
+                        Credit Passport ID
                       </p>
                       <p className="mt-1 break-all font-mono text-sm text-slate-950 dark:text-white">
                         {passport.proofId}
@@ -274,7 +347,7 @@ export default function GenerateProofPage() {
 
                     <div className="muted-surface rounded-2xl p-4">
                       <p className="text-sm text-slate-500 dark:text-slate-400">
-                        Private commitment
+                        Privacy Commitment
                       </p>
                       <p className="mt-1 break-all font-mono text-sm text-teal-800 dark:text-teal-300">
                         {passport.commitment}
@@ -288,7 +361,7 @@ export default function GenerateProofPage() {
                           className="text-amber-700 dark:text-amber-300"
                         />
                         <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-                          Period
+                          Evaluation Period
                         </p>
                         <p className="font-semibold text-slate-950 dark:text-white">
                           {passport.criteria.periodDays} days
@@ -301,7 +374,7 @@ export default function GenerateProofPage() {
                           className="text-emerald-700 dark:text-emerald-300"
                         />
                         <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-                          Growth proof
+                          Required Growth
                         </p>
                         <p className="font-semibold text-slate-950 dark:text-white">
                           ≥ {passport.criteria.minGrowth}%

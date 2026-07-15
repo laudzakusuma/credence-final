@@ -12,7 +12,7 @@ import CompactStandardLibrary;
   - Bank verifies eligibility from proof commitment, not raw transactions.
 
   Public data:
-  - proof id hash
+  - Credit Passport ID hash
   - merchant commitment
   - criteria commitment
   - proof commitment

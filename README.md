@@ -61,7 +61,7 @@ The MSME selects lending criteria, such as minimum revenue, growth percentage, a
 
 The lender receives:
 
-- proof ID
+- Credit Passport ID
 - selected lending criteria
 - commitment hash
 - verification result
@@ -155,7 +155,7 @@ revokeCreditPassport
 
 The contract stores only public commitments and proof status:
 
-- proof ID hash
+- Credit Passport ID hash
 - merchant commitment
 - private data commitment
 - criteria commitment
@@ -299,7 +299,7 @@ update_verification
 
 The contract stores only verification references and commitments:
 
-- proof ID commitment
+- Credit Passport ID commitment
 - merchant hash
 - private data commitment
 - lending criteria commitment

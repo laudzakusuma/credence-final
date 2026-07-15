@@ -201,7 +201,7 @@ async function main() {
           const defaultUpdatedAt = new Date().toISOString();
 
           const proofIdHash =
-            (await rl.question(`  Proof ID hash [${defaultProofIdHash}]: `)) ||
+            (await rl.question(`  Credit Passport ID hash [${defaultProofIdHash}]: `)) ||
             defaultProofIdHash;
 
           const merchantCommitment =
@@ -272,7 +272,7 @@ async function main() {
             const ledgerState = Credence.ledger(contractState.data);
 
             console.log('  📋 Current credit passport proof\n');
-            console.log(`  Proof ID Hash:        ${decodeOpaqueString(ledgerState.proofIdHash)}`);
+            console.log(`  Credit Passport ID Hash:        ${decodeOpaqueString(ledgerState.proofIdHash)}`);
             console.log(`  Merchant Commitment:  ${decodeOpaqueString(ledgerState.merchantCommitment)}`);
             console.log(`  Data Commitment:      ${decodeOpaqueString(ledgerState.dataCommitment)}`);
             console.log(`  Criteria Commitment:  ${decodeOpaqueString(ledgerState.criteriaCommitment)}`);

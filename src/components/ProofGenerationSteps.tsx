@@ -17,24 +17,28 @@ type Props = {
 
 const steps = [
   {
-    icon: DatabaseZap,
-    title: "Reading private sales signals",
-    desc: "Marketplace and bank records stay private.",
+    title: "Importing Marketplace Data...",
+    desc: "Loading verified marketplace transaction history.",
   },
   {
-    icon: LockKeyhole,
-    title: "Creating data commitment",
-    desc: "Raw rows, customers, and exact revenue are hidden.",
+    title: "Analyzing Business Performance...",
+    desc: "Measuring revenue and business growth over the selected period.",
   },
   {
-    icon: Fingerprint,
-    title: "Generating proof commitment",
-    desc: "Credence prepares a verifiable privacy proof.",
+    title: "Applying Loan Eligibility Policy...",
+    desc: "Evaluating whether the business satisfies the lender's requirements.",
   },
   {
-    icon: QrCode,
-    title: "Preparing lender QR package",
-    desc: "Only proof status and selected criteria are shared.",
+    title: "Creating Midnight Privacy Commitment...",
+    desc: "Protecting sensitive financial data with a cryptographic commitment.",
+  },
+  {
+    title: "Generating Credit Passport...",
+    desc: "Producing a privacy-preserving Credit Passport for lender verification.",
+  },
+  {
+    title: "Credit Passport Ready",
+    desc: "Ready to be verified by financial institutions.",
   },
 ];
 
@@ -139,9 +143,17 @@ export default function ProofGenerationSteps({ active }: Props) {
 
           <div className="mt-5 grid gap-3">
             {steps.map((step, index) => {
-              const Icon = step.icon;
               const isDone = index < currentStep;
               const isActive = index === currentStep;
+              const icons = [
+                DatabaseZap,
+                Fingerprint,
+                LockKeyhole,
+                QrCode,
+                ShieldCheck,
+                ShieldCheck,
+              ];
+              const Icon = icons[index] ?? ShieldCheck;
 
               return (
                 <motion.div

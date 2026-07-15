@@ -29,7 +29,7 @@ The contract does not store raw sales data, customer names, order IDs, product d
 
 Instead, it stores:
 
-- proof id hash
+- Credit Passport ID hash
 - merchant commitment
 - data commitment
 - criteria commitment
