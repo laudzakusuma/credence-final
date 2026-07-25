@@ -5,7 +5,9 @@
 Credence helps micro, small, and medium enterprises prove creditworthiness to banks and lenders without exposing raw sales records, customer identities, exact revenue, or sensitive business data.
 
 Live demo: https://credence-six-zeta.vercel.app
+
 Video Demo: https://youtu.be/SJRESPHn2ZM?si=PZ2RcXtHMyAklePC
+
 Another: https://drive.google.com/drive/folders/1_zOBP4FzmWs30a9PChQm6iJJ8qqmYyKT?usp=sharing
 
 ---
