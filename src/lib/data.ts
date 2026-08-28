@@ -25,9 +25,9 @@ export type CreditPassport = {
     verified: boolean;
     revenueThresholdMet: boolean;
     growthThresholdMet: boolean;
-    rawRevenueHidden: true;
-    rawTransactionsHidden: true;
-    customerDataHidden: true;
+    rawRevenueTersembunyi: true;
+    rawTransactionsTersembunyi: true;
+    customerDataTersembunyi: true;
   };
   issuedAt: string;
 };
@@ -156,11 +156,11 @@ export function calculateGrowth(records: SaleRecord[]) {
   );
 
   const middle = Math.floor(sorted.length / 2);
-  const firstPeriod = sorted.slice(0, middle);
-  const secondPeriod = sorted.slice(middle);
+  const firstPeriodee = sorted.slice(0, middle);
+  const secondPeriodee = sorted.slice(middle);
 
-  const firstRevenue = calculateTotalRevenue(firstPeriod);
-  const secondRevenue = calculateTotalRevenue(secondPeriod);
+  const firstRevenue = calculateTotalRevenue(firstPeriodee);
+  const secondRevenue = calculateTotalRevenue(secondPeriodee);
 
   if (firstRevenue === 0) return 0;
 
@@ -169,7 +169,7 @@ export function calculateGrowth(records: SaleRecord[]) {
 
 export function buildMonthlyChart(records: SaleRecord[]) {
   const grouped = records.reduce<Record<string, number>>((acc, record) => {
-    const month = new Date(record.date).toLocaleString("en-US", {
+    const month = new Date(record.date).toLocaleString("id-ID", {
       month: "short",
     });
 
@@ -227,9 +227,9 @@ export function createCreditPassport(
       verified: revenueThresholdMet && growthThresholdMet,
       revenueThresholdMet,
       growthThresholdMet,
-      rawRevenueHidden: true,
-      rawTransactionsHidden: true,
-      customerDataHidden: true,
+      rawRevenueTersembunyi: true,
+      rawTransactionsTersembunyi: true,
+      customerDataTersembunyi: true,
     },
     issuedAt: new Date().toISOString(),
   };

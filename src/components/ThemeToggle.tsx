@@ -10,7 +10,7 @@ export default function ThemeToggle() {
     <button
       type="button"
       onClick={toggleTheme}
-      aria-label="Toggle theme"
+      aria-label="Ubah tema"
       className="
         inline-flex h-10 w-10 items-center justify-center rounded-xl
         border border-slate-200 bg-white text-slate-700 shadow-sm transition

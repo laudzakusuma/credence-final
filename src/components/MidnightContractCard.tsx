@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { MIDNIGHT_CONTRACT } from "@/lib/midnight";
 import {
@@ -17,7 +17,7 @@ function shorten(value: string) {
 export default function MidnightContractCard() {
   async function copyAddress() {
     await navigator.clipboard.writeText(MIDNIGHT_CONTRACT.address);
-    toast.success("Midnight contract address copied");
+    toast.success("Alamat kontrak Midnight berhasil disalin");
   }
 
   return (
@@ -30,21 +30,17 @@ export default function MidnightContractCard() {
           </div>
 
           <h2 className="mt-4 text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">
-            Midnight confidential contract
+            Kontrak rahasia Midnight
           </h2>
 
           <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-400">
-            Credence registers private credit passport commitments on a
-            Midnight Compact contract. The contract was compiled and deployed
-            through the official Midnight toolchain in GitHub Codespaces, while
-            raw sales records, customers, and exact revenue are never stored
-            on-chain.
+            Credence mendaftarkan komitmen paspor kredit privat pada kontrak Midnight Compact. Kontrak tersebut dikompilasi dan di-deploy melalui toolchain resmi Midnight di GitHub Codespaces, sementara catatan penjualan mentah, data pelanggan, dan angka pendapatan pasti tidak pernah disimpan secara on-chain.
           </p>
         </div>
 
         <div className="mt-3 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
           <ExternalLink size={14} />
-          Deployment notes: docs/midnight-deployment.md
+          Catatan deployment: docs/midnight-deployment.md
         </div>
 
         <div className="grid h-12 w-12 shrink-0 place-items-center rounded-2xl bg-slate-950 text-white dark:bg-white dark:text-slate-950">
@@ -55,7 +51,7 @@ export default function MidnightContractCard() {
       <div className="mt-6 grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
         <div className="muted-surface rounded-2xl p-4">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
-            Contract address
+            Alamat kontrak
           </p>
 
           <div className="mt-3 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -75,7 +71,7 @@ export default function MidnightContractCard() {
 
         <div className="muted-surface rounded-2xl p-4">
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-500 dark:text-slate-400">
-            Network
+            Jaringan
           </p>
 
           <p className="mt-3 text-sm font-semibold text-slate-950 dark:text-white">
@@ -83,7 +79,7 @@ export default function MidnightContractCard() {
           </p>
 
           <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-            Deployed at 2026-05-25 02:09:14 UTC
+            Dideploy pada 25-05-2026 02:09:14 UTC
           </p>
         </div>
       </div>
@@ -100,7 +96,7 @@ export default function MidnightContractCard() {
 
             <div>
               <p className="text-xs text-slate-500 dark:text-slate-400">
-                Circuit
+                Sirkuit
               </p>
               <p className="text-sm font-semibold text-slate-950 dark:text-white">
                 {circuit}
@@ -112,7 +108,7 @@ export default function MidnightContractCard() {
 
       <div className="mt-5 flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
         <ExternalLink size={14} />
-        Contract source: midnight-contract/contracts/credence.compact
+        Sumber kontrak: midnight-contract/contracts/credence.compact
       </div>
     </div>
   );

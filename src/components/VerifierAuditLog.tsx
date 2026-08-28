@@ -19,56 +19,56 @@ type Props = {
 const verifiedSteps = [
   {
     icon: FileCheck2,
-    title: "Proof payload parsed",
-    desc: "The lender portal successfully decoded the submitted credit passport.",
+    title: "Data proof berhasil dibaca",
+    desc: "Portal lender berhasil membaca data paspor kredit yang dikirim.",
   },
   {
     icon: Fingerprint,
-    title: "Midnight commitment detected",
-    desc: "Proof commitment and private data commitment are available for verification.",
+    title: "Commitment Midnight terdeteksi",
+    desc: "Proof commitment dan private data commitment tersedia untuk diverifikasi.",
   },
   {
     icon: ShieldCheck,
-    title: "Revenue threshold verified",
-    desc: "The business meets the selected revenue requirement without revealing exact sales.",
+    title: "Batas pendapatan terverifikasi",
+    desc: "Usaha memenuhi batas pendapatan yang dipilih tanpa membuka nilai penjualan aktual.",
   },
   {
     icon: CheckCircle2,
-    title: "Growth requirement verified",
-    desc: "The growth condition is satisfied using selective disclosure.",
+    title: "Kriteria pertumbuhan terverifikasi",
+    desc: "Kriteria pertumbuhan terpenuhi melalui selective disclosure.",
   },
   {
     icon: EyeOff,
-    title: "Customer identities exposed: 0",
-    desc: "No customer names, order IDs, or marketplace records are shared with the lender.",
+    title: "Identitas pelanggan yang terbuka: 0",
+    desc: "Tidak ada nama pelanggan, ID pesanan, atau data marketplace yang dibagikan kepada lender.",
   },
   {
     icon: Lock,
-    title: "Raw transaction rows exposed: 0",
-    desc: "The bank sees eligibility, not the underlying private transaction history.",
+    title: "Data transaksi mentah yang terbuka: 0",
+    desc: "Bank hanya melihat kelayakan, bukan riwayat transaksi privat yang mendasarinya.",
   },
   {
     icon: Wallet,
-    title: "Eligible for Stellar USDC payout",
-    desc: "The verified result can trigger an approved disbursement flow.",
+    title: "Memenuhi syarat untuk payout Stellar USDC",
+    desc: "Hasil verifikasi dapat melanjutkan proses pencairan yang disetujui.",
   },
 ];
 
 const failedSteps = [
   {
     icon: FileCheck2,
-    title: "Proof payload parsed",
+    title: "Data proof berhasil dibaca",
     desc: "The lender portal decoded the submitted credit passport.",
   },
   {
     icon: Landmark,
-    title: "Eligibility check failed",
-    desc: "The proof is valid, but the selected credit criteria were not satisfied.",
+    title: "Pemeriksaan kelayakan gagal",
+    desc: "Proof valid, tetapi kriteria kredit yang dipilih tidak terpenuhi.",
   },
   {
     icon: EyeOff,
-    title: "Private data still protected",
-    desc: "Even failed proofs do not expose customers, exact revenue, or raw sales rows.",
+    title: "Data privat tetap terlindungi",
+    desc: "Proof yang gagal sekalipun tidak membuka data pelanggan, pendapatan aktual, atau transaksi mentah.",
   },
 ];
 
@@ -80,11 +80,11 @@ export default function VerifierAuditLog({ verified }: Props) {
       <div className="flex flex-col justify-between gap-4 md:flex-row md:items-start">
         <div>
           <p className="page-eyebrow text-sm font-semibold uppercase tracking-[0.18em]">
-            Verification Audit Trail
+            Riwayat Audit Verifikasi
           </p>
 
           <h3 className="mt-2 text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">
-            {verified ? "Privacy proof verified" : "Proof reviewed"}
+            {verified ? "Privacy proof terverifikasi" : "Proof telah ditinjau"}
           </h3>
 
           <p className="mt-2 max-w-2xl text-sm leading-6 text-slate-600 dark:text-slate-400">
@@ -101,7 +101,7 @@ export default function VerifierAuditLog({ verified }: Props) {
           }`}
         >
           <CheckCircle2 size={16} />
-          {verified ? "Verified" : "Reviewed"}
+          {verified ? "Terverifikasi" : "Ditinjau"}
         </div>
       </div>
 

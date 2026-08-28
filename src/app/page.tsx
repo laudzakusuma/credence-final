@@ -45,7 +45,7 @@ export default function HomePage() {
               variants={fadeUp}
               className="page-title max-w-4xl text-5xl font-semibold tracking-[-0.04em] md:text-7xl"
             >
-              Credit access for{" "}
+              Akses kredit untuk{" "}
               <span className="relative inline-block">
                 MSMEs
                 <motion.span
@@ -55,14 +55,15 @@ export default function HomePage() {
                   className="absolute -bottom-1 left-0 h-2 w-full origin-left rounded-full bg-teal-300/55 dark:bg-teal-400/35"
                 />
               </span>{" "}
-              without exposing business data.
+              tanpa membuka data bisnis.
             </motion.h1>
 
             <motion.p
               variants={fadeUp}
               className="page-desc mt-6 max-w-2xl text-lg leading-8"
             >
-              Credence evaluates private business data and issues a privacy-preserving Credit Passport that lenders can verify without accessing raw transactions.
+              Credence memungkinkan UMKM membuktikan pendapatan, pertumbuhan, dan kesiapan pelunasan kepada pemberi pinjaman, 
+              dengan tetap menjaga kerahasiaan transaksi, nama pelanggan, dan data marketplace.
             </motion.p>
 
             <motion.div
@@ -74,7 +75,7 @@ export default function HomePage() {
                   href="/dashboard"
                   className="primary-action group inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold transition"
                 >
-                  View MSME dashboard
+                  Lihat Dashboard UMKM
                   <ArrowRight
                     size={17}
                     className="transition-transform group-hover:translate-x-1"
@@ -87,7 +88,7 @@ export default function HomePage() {
                   href="/bank"
                   className="secondary-action group inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold transition"
                 >
-                  Open lender portal
+                  Buka Portal Lender
                   <Landmark
                     size={17}
                     className="transition-transform group-hover:scale-110"
@@ -101,9 +102,9 @@ export default function HomePage() {
               className="mt-10 grid max-w-2xl grid-cols-1 gap-4 sm:grid-cols-3"
             >
               {[
-                ["Private proofs", "No raw sales shared"],
-                ["Bank-ready", "Instant verification"],
-                ["Stellar rail", "Stellar Testnet Settlement"],
+                ["Proof privat", "Tanpa data penjualan mentah"],
+                ["Siap untuk Bank", "Verifikasi instan"],
+                ["Jalur Stellar", "Pencairan USDC"],
               ].map(([title, desc], index) => (
                 <motion.div
                   key={title}
@@ -147,16 +148,16 @@ export default function HomePage() {
           className="mb-8 max-w-2xl"
         >
           <p className="page-eyebrow text-sm font-semibold uppercase tracking-[0.2em]">
-            How it works
+            Cara kerja
           </p>
 
           <h2 className="page-title mt-3 text-3xl font-semibold tracking-tight md:text-4xl">
-            A lender sees proof, not private records.
+            Lender melihat proof, bukan data privat.
           </h2>
 
           <p className="page-desc mt-4 text-base leading-7">
-            Credence turns business data into verifiable private claims for
-            underwriting, while sensitive records stay protected.
+            Credence mengubah data bisnis menjadi klaim privat yang dapat diverifikasi untuk proses underwriting, 
+            sementara data sensitif tetap terlindungi.
           </p>
         </motion.div>
 
@@ -164,23 +165,23 @@ export default function HomePage() {
           {[
             {
               icon: Building2,
-              title: "MSME connects data",
-              desc: "Sales data from marketplace exports, bank statements, or APIs is processed privately.",
+              title: "UMKM menghubungkan data",
+              desc: "Data penjualan dari ekspor marketplace, rekening bank, atau API diproses secara privat.",
             },
             {
               icon: LockKeyhole,
-              title: "Eligibility is evaluated",
-              desc: "Business data is evaluated against the lender's underwriting policy and transformed into a privacy-preserving commitment.",
+              title: "Data privat diproses",
+              desc: "Pemeriksaan pendapatan dan pertumbuhan diubah menjadi commitment yang siap dibuat menjadi proof.",
             },
             {
               icon: EyeOff,
-              title: "Credit Passport is issued",
-              desc: "The lender receives only the Credit Passport containing verification results and privacy-preserving commitments.",
+              title: "Proof selektif dibagikan",
+              desc: "Pelaku usaha memilih informasi yang ingin dibuktikan tanpa membuka detail transaksi.",
             },
             {
               icon: Wallet,
-              title: "Loan can be settled",
-              desc: "After verification, approved credit can be disbursed through Stellar USDC.",
+              title: "Pinjaman dapat disalurkan",
+              desc: "Setelah verifikasi, kredit yang disetujui dapat disalurkan melalui Stellar USDC.",
             },
           ].map((item, index) => (
             <motion.div
@@ -219,7 +220,7 @@ export default function HomePage() {
           whileInView={{ opacity: 1, y: 0, scale: 1 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           viewport={{ once: true, amount: 0.25 }}
-          className="relative overflow-hidden rounded-[1.75rem] border border-slate-200 bg-slate-950 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.18)] transition-colors duration-500 dark:border-white/10 dark:bg-white/[0.045] dark:shadow-[0_24px_90px_rgba(0,0,0,0.32)] md:p-8"
+          className="relative overflow-hidden rounded-[1.75rem] border border-slate-200 bg-slate-950 p-6 shadow-[0_24px_80px_rgba(15,23,42,0.18)] transition-colors duration-500 dark:border-white/10 dark:bg-white/4.5 dark:shadow-[0_24px_90px_rgba(0,0,0,0.32)] md:p-8"
         >
           <motion.div
             animate={{
@@ -238,17 +239,16 @@ export default function HomePage() {
           <div className="relative z-10 grid gap-8 md:grid-cols-[0.9fr_1.1fr] md:items-center">
             <div>
               <p className="text-sm font-semibold uppercase tracking-[0.2em] text-teal-300">
-                Built for APAC credit flows
+                Dirancang untuk alur kredit APAC
               </p>
 
               <h2 className="mt-3 text-3xl font-semibold tracking-tight text-white">
-                Designed for banks, fintechs, and MSME platforms.
+                Dirancang untuk bank, fintech, dan platform UMKM.
               </h2>
 
               <p className="mt-4 leading-7 text-slate-300">
-                Credence creates a privacy layer between business data sources
-                and lenders, reducing manual document sharing while improving
-                trust in underwriting.
+                Credence menciptakan lapisan privasi antara sumber data bisnis dan pemberi pinjaman, 
+                mengurangi pertukaran dokumen manual sekaligus meningkatkan kepercayaan dalam proses underwriting.
               </p>
             </div>
 
@@ -256,23 +256,23 @@ export default function HomePage() {
               {[
                 {
                   icon: Banknote,
-                  title: "Credit eligibility",
-                  desc: "Evaluate revenue eligibility without revealing exact revenue.",
+                  title: "Proof batas kredit",
+                  desc: "Buktikan persyaratan pendapatan tanpa membuka nilai pendapatan aktual.",
                 },
                 {
                   icon: ShieldCheck,
-                  title: "Privacy-preserving commitments",
-                  desc: "Midnight stores commitments instead of sensitive business records.",
+                  title: "Verifikasi rahasia",
+                  desc: "Gunakan proof commitment bergaya Midnight dan selective disclosure.",
                 },
                 {
                   icon: Landmark,
-                  title: "Lender portal",
-                  desc: "Verify proof packages from MSME borrowers in seconds.",
+                  title: "Portal lender",
+                  desc: "Verifikasi paket proof dari peminjam UMKM dalam hitungan detik.",
                 },
                 {
                   icon: Wallet,
-                  title: "USDC payout path",
-                  desc: "Connect approval to Stellar-based settlement flows.",
+                  title: "Jalur payout USDC",
+                  desc: "Hubungkan persetujuan dengan alur penyelesaian berbasis Stellar.",
                 },
               ].map((item, index) => (
                 <motion.div
@@ -282,7 +282,7 @@ export default function HomePage() {
                   transition={{ delay: index * 0.08, duration: 0.45 }}
                   viewport={{ once: true, amount: 0.35 }}
                   whileHover={{ y: -4, backgroundColor: "rgba(255,255,255,0.08)" }}
-                  className="rounded-2xl border border-white/10 bg-white/[0.04] p-4 transition"
+                  className="rounded-2xl border border-white/10 bg-white/4 p-4 transition"
                 >
                   <item.icon className="text-teal-300" size={20} />
 

@@ -24,7 +24,7 @@ export default function AnimatedBadge() {
         <ShieldCheck size={14} />
       </motion.span>
 
-      Built for privacy-first credit underwriting
+      Dirancang untuk penilaian kredit yang mengutamakan privasi
 
       <motion.span
         animate={{ x: ["-20%", "120%"] }}

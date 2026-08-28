@@ -47,7 +47,7 @@ export default function Navbar() {
               Credence
             </p>
             <p className="mt-1 text-xs text-slate-500 dark:text-slate-400">
-              Private credit infrastructure
+              Infrastruktur kredit privat
             </p>
           </div>
         </Link>
@@ -60,10 +60,10 @@ export default function Navbar() {
             className="transition hover:text-slate-950 dark:hover:text-white"
             href="/generate-proof"
           >
-            Generate proof
+            Buat Proof
           </Link>
           <Link className="transition hover:text-slate-950 dark:hover:text-white" href="/bank">
-            Bank portal
+            Portal Bank/Lender
           </Link>
         </div>
 
@@ -81,7 +81,7 @@ export default function Navbar() {
             "
           >
             <Wallet size={16} />
-            Open app
+            Buka Aplikasi
           </Link>
         </div>
       </div>

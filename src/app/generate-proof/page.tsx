@@ -1,9 +1,8 @@
-"use client";
+﻿"use client";
 
 import Link from "next/link";
 import Navbar from "@/components/Navbar";
 import ProofBadge from "@/components/ProofBadge";
-import { Loader2 } from "lucide-react";
 import ProofGenerationSteps from "@/components/ProofGenerationSteps";
 import {
   createCreditPassport,
@@ -21,10 +20,6 @@ import {
   ShieldCheck,
   SlidersHorizontal,
   TrendingUp,
-  Database,
-  Calculator,
-  BadgeCheck,
-  ArrowDown,
 } from "lucide-react";
 import { QRCodeCanvas } from "qrcode.react";
 import { useMemo, useState } from "react";
@@ -69,16 +64,16 @@ export default function GenerateProofPage() {
     setIsGenerating(false);
 
     if (generated.result.verified) {
-      toast.success("Private credit passport generated");
+      toast.success("Paspor kredit privat berhasil dibuat");
     } else {
-      toast.error("Proof generated, but criteria were not met");
+      toast.error("Proof berhasil dibuat, tetapi kriteria tidak terpenuhi");
     }
   }
 
-  async function handleCopyProof() {
+  async function handleSalinProof() {
     if (!qrPayload) return;
     await navigator.clipboard.writeText(qrPayload);
-    toast.success("Proof payload copied");
+    toast.success("Data proof berhasil disalin");
   }
 
   return (
@@ -92,17 +87,17 @@ export default function GenerateProofPage() {
           className="mb-8"
         >
           <p className="page-eyebrow text-sm font-semibold uppercase tracking-[0.18em]">
-            Credit Evaluation
+            Buat Proof
           </p>
 
           <h1 className="page-title mt-3 text-4xl font-semibold tracking-[-0.035em] md:text-5xl">
-            Generate a Privacy-Protected Credit Passport
+            Buat paspor kredit privat
           </h1>
 
           <p className="page-desc mt-4 max-w-2xl text-base leading-8">
-            Credence evaluates verified marketplace transaction data against the lender’s
-            eligibility policy. Only the verification result is shared—never the raw
-            business records.
+            Pilih kriteria yang akan dibuktikan. 
+            Credence akan menunjukkan apakah bisnis tersebut 
+            memenuhi persyaratan tanpa mengungkapkan data penjualan yang mendasarinya.
           </p>
         </motion.div>
 
@@ -112,75 +107,26 @@ export default function GenerateProofPage() {
             animate={{ opacity: 1, y: 0 }}
             className="surface-card rounded-[1.75rem] p-6"
           >
-            <div className="mb-8 rounded-3xl border border-emerald-200 bg-emerald-50 p-6">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="text-xl font-semibold text-emerald-900">
-                    Verified Business Data
-                  </h2>
-                  <p className="mt-1 text-sm text-emerald-700">
-                    Representative marketplace transaction dataset used for evaluation.
-                  </p>
-                </div>
-                <ShieldCheck className="h-8 w-8 text-emerald-600" />
-              </div>
-              <div className="mt-6 grid grid-cols-2 gap-5">
-                <div>
-                  <p className="text-xs uppercase tracking-wide text-slate-500">
-                    Source
-                  </p>
-                  <p className="font-medium">
-                    Marketplace Transaction Dataset
-                  </p>
-                </div>
-                <div>
-                  <p className="text-xs uppercase tracking-wide text-slate-500">
-                    Status
-                  </p>
-                  <p className="font-semibold text-emerald-700">
-                    Imported Successfully
-                  </p>
-                </div>
-                <div>
-                  <p className="text-xs uppercase tracking-wide text-slate-500">
-                    Platforms
-                  </p>
-                  <p>
-                    Tokopedia • Shopee • Lazada
-                  </p>
-                </div>
-                <div>
-                  <p className="text-xs uppercase tracking-wide text-slate-500">
-                    Imported Records
-                  </p>
-                  <p>
-                    {sampleSales.length} Transactions
-                  </p>
-                </div>
-              </div>
-
-            </div>
             <div className="mb-6 flex items-center gap-3">
               <div className="icon-tile-cyan rounded-xl p-3">
                 <SlidersHorizontal size={22} />
               </div>
+
               <div>
                 <h2 className="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">
-                  Loan Eligibility Policy
+                  Kriteria proof
                 </h2>
                 <p className="text-sm text-slate-500 dark:text-slate-400">
-                  The lender defines the minimum requirements. Credence evaluates verified marketplace transaction data against these policies before generating a privacy-preserving Credit Passport.
+                  Konfigurasi selective disclosure.
                 </p>
               </div>
-              <div className="mt-3 inline-flex items-center rounded-full bg-blue-100 px-3 py-1 text-xs font-semibold text-blue-700">
-                  Configured by Lender
-              </div>
             </div>
+
             <div className="space-y-7">
               <div>
                 <div className="mb-3 flex items-center justify-between">
                   <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Required Monthly Revenue
+                    Pendapatan minimum
                   </label>
                   <span className="text-sm font-semibold text-teal-700 dark:text-teal-300">
                     {formatIDR(minRevenue)}
@@ -202,7 +148,7 @@ export default function GenerateProofPage() {
               <div>
                 <div className="mb-3 flex items-center justify-between">
                   <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Required Business Growth
+                    Pertumbuhan minimum
                   </label>
                   <span className="text-sm font-semibold text-emerald-700 dark:text-emerald-300">
                     {minGrowth}%
@@ -224,10 +170,10 @@ export default function GenerateProofPage() {
               <div>
                 <div className="mb-3 flex items-center justify-between">
                   <label className="text-sm font-semibold text-slate-700 dark:text-slate-300">
-                    Evaluation Period
+                    Periodee
                   </label>
                   <span className="text-sm font-semibold text-amber-700 dark:text-amber-300">
-                    {periodDays} days
+                    {periodDays} hari
                   </span>
                 </div>
 
@@ -242,29 +188,16 @@ export default function GenerateProofPage() {
                   className="w-full disabled:opacity-50"
                 />
               </div>
-              <div className="mt-6 rounded-xl border border-blue-200 bg-blue-50 p-4">
-                  <p className="text-sm text-blue-700">
-                      These controls simulate the lender's loan eligibility policy.
 
-                      They do not modify the MSME's business records.
-                  </p>
-              </div>
               <button
                 onClick={handleGenerateProof}
                 disabled={isGenerating}
                 className="primary-action inline-flex w-full items-center justify-center gap-2 rounded-xl px-6 py-3.5 text-sm font-semibold transition disabled:cursor-not-allowed disabled:opacity-60"
               >
-                {isGenerating ? (
-                  <>
-                    <Loader2 className="h-4 w-4 animate-spin" />
-                    Evaluating Business Data...
-                  </>
-                ) : (
-                  <>
-                    Evaluate & Generate Credit Passport
-                    <ShieldCheck size={17} />
-                  </>
-                )}
+                {isGenerating
+                  ? "Sedang membuat proof privat..."
+                  : "Buat Proof package"}
+                <ShieldCheck size={17} />
               </button>
             </div>
 
@@ -275,11 +208,8 @@ export default function GenerateProofPage() {
                   size={18}
                 />
                 <p className="text-sm leading-6 text-slate-600 dark:text-slate-400">
-                  Verified marketplace transaction data is transformed into a
-                  privacy-preserving cryptographic commitment.
-
-                  Only eligibility claims—not raw transaction history,
-                  customer identities, or exact revenue—are shared with lenders.
+                  Data privat diubah menjadi proof commitment. 
+                  Pemberi pinjaman hanya menerima kriteria yang dipilih, hash komitmen, dan status verifikasi.
                 </p>
               </div>
             </div>
@@ -294,22 +224,18 @@ export default function GenerateProofPage() {
             {isGenerating ? (
               <ProofGenerationSteps active={isGenerating} />
             ) : !passport ? (
-              <div className="muted-surface grid min-h-[520px] place-items-center rounded-[1.5rem] border-dashed p-8 text-center">
+              <div className="muted-surface grid min-h-130 place-items-center rounded-3xl border-dashed p-8 text-center">
                 <div>
                   <div className="icon-tile-cyan mx-auto grid h-20 w-20 place-items-center rounded-2xl">
                     <QrCode size={34} />
                   </div>
 
                   <h2 className="mt-6 text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">
-                    Your Privacy-Protected Credit Passport
+                    Paspor kredit Anda akan muncul di sini
                   </h2>
 
                   <p className="mx-auto mt-3 max-w-md text-sm leading-7 text-slate-600 dark:text-slate-400">
-                    Generate a Credit Passport to evaluate verified                     
-                    marketplace transaction data against the lender's policy.
-
-                    Only privacy-preserving verification results
-                    will be shared.
+                   Buktikan ke pemberi pinjaman secara privat tanpa membuka data marketplace.
                   </p>
                 </div>
               </div>
@@ -322,7 +248,7 @@ export default function GenerateProofPage() {
                 <ProofBadge verified={passport.result.verified} />
 
                 <div className="mt-6 grid gap-6 lg:grid-cols-[0.8fr_1.2fr]">
-                  <div className="surface-card rounded-[1.5rem] p-5">
+                  <div className="surface-card rounded-3xl p-5">
                     <div className="rounded-xl bg-white p-3">
                       <QRCodeCanvas
                         value={qrPayload}
@@ -338,7 +264,7 @@ export default function GenerateProofPage() {
                   <div className="space-y-4">
                     <div className="muted-surface rounded-2xl p-4">
                       <p className="text-sm text-slate-500 dark:text-slate-400">
-                        Credit Passport ID
+                        Proof ID
                       </p>
                       <p className="mt-1 break-all font-mono text-sm text-slate-950 dark:text-white">
                         {passport.proofId}
@@ -347,7 +273,7 @@ export default function GenerateProofPage() {
 
                     <div className="muted-surface rounded-2xl p-4">
                       <p className="text-sm text-slate-500 dark:text-slate-400">
-                        Privacy Commitment
+                        Commitment privat
                       </p>
                       <p className="mt-1 break-all font-mono text-sm text-teal-800 dark:text-teal-300">
                         {passport.commitment}
@@ -361,10 +287,10 @@ export default function GenerateProofPage() {
                           className="text-amber-700 dark:text-amber-300"
                         />
                         <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-                          Evaluation Period
+                          Periodee
                         </p>
                         <p className="font-semibold text-slate-950 dark:text-white">
-                          {passport.criteria.periodDays} days
+                          {passport.criteria.periodDays} hari
                         </p>
                       </div>
 
@@ -374,10 +300,10 @@ export default function GenerateProofPage() {
                           className="text-emerald-700 dark:text-emerald-300"
                         />
                         <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-                          Required Growth
+                          Proof pertumbuhan
                         </p>
                         <p className="font-semibold text-slate-950 dark:text-white">
-                          ≥ {passport.criteria.minGrowth}%
+                          ÃƒÂ¢Ã¢â‚¬Â°Ã‚Â¥ {passport.criteria.minGrowth}%
                         </p>
                       </div>
                     </div>
@@ -389,12 +315,12 @@ export default function GenerateProofPage() {
                     href={`/bank?proof=${encodeURIComponent(qrPayload)}`}
                     className="primary-action inline-flex flex-1 items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold transition"
                   >
-                    Verify in bank portal
+                    Verifikasi di portal bank
                     <Landmark size={17} />
                   </Link>
 
                   <button
-                    onClick={handleCopyProof}
+                    onClick={handleSalinProof}
                     className="secondary-action inline-flex flex-1 items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold transition"
                   >
                     Copy proof payload

@@ -4,9 +4,9 @@ import { Toaster } from "sonner";
 import { ThemeProvider } from "@/components/ThemeProvider";
 
 export const metadata: Metadata = {
-  title: "Credence | Private Credit Passport",
+  title: "Credence | Paspor Kredit Privat",
   description:
-    "Private credit passport infrastructure for APAC MSMEs powered by Midnight and Stellar.",
+    "Infrastruktur paspor kredit privat untuk UMKM APAC yang didukung oleh Midnight dan Stellar.",
 };
 
 export default function RootLayout({
@@ -15,7 +15,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="id" suppressHydrationWarning>
       <body>
         <ThemeProvider>
           {children}

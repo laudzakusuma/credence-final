@@ -17,28 +17,24 @@ type Props = {
 
 const steps = [
   {
-    title: "Importing Marketplace Data...",
-    desc: "Loading verified marketplace transaction history.",
+    icon: DatabaseZap,
+    title: "Membaca sinyal penjualan privat",
+    desc: "Data marketplace dan bank tetap privat.",
   },
   {
-    title: "Analyzing Business Performance...",
-    desc: "Measuring revenue and business growth over the selected period.",
+    icon: LockKeyhole,
+    title: "Membuat commitment data",
+    desc: "Data transaksi, pelanggan, dan pendapatan aktual disembunyikan.",
   },
   {
-    title: "Applying Loan Eligibility Policy...",
-    desc: "Evaluating whether the business satisfies the lender's requirements.",
+    icon: Fingerprint,
+    title: "Membuat commitment proof",
+    desc: "Credence menyiapkan privacy proof yang dapat diverifikasi.",
   },
   {
-    title: "Creating Midnight Privacy Commitment...",
-    desc: "Protecting sensitive financial data with a cryptographic commitment.",
-  },
-  {
-    title: "Generating Credit Passport...",
-    desc: "Producing a privacy-preserving Credit Passport for lender verification.",
-  },
-  {
-    title: "Credit Passport Ready",
-    desc: "Ready to be verified by financial institutions.",
+    icon: QrCode,
+    title: "Menyiapkan paket QR untuk lender",
+    desc: "Hanya status proof dan kriteria yang dipilih yang dibagikan.",
   },
 ];
 
@@ -143,17 +139,9 @@ export default function ProofGenerationSteps({ active }: Props) {
 
           <div className="mt-5 grid gap-3">
             {steps.map((step, index) => {
+              const Icon = step.icon;
               const isDone = index < currentStep;
               const isActive = index === currentStep;
-              const icons = [
-                DatabaseZap,
-                Fingerprint,
-                LockKeyhole,
-                QrCode,
-                ShieldCheck,
-                ShieldCheck,
-              ];
-              const Icon = icons[index] ?? ShieldCheck;
 
               return (
                 <motion.div

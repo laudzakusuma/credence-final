@@ -48,14 +48,14 @@ export default function DashboardPage() {
         >
           <div>
             <p className="page-eyebrow text-sm font-semibold uppercase tracking-[0.18em]">
-              MSME Dashboard
+              Dashboard UMKM
             </p>
             <h1 className="page-title mt-3 text-4xl font-semibold tracking-[-0.035em] md:text-5xl">
-              Nusantara Craft Co. credit readiness
+              Kesiapan kredit Nusantara Craft Co.
             </h1>
             <p className="page-desc mt-4 max-w-2xl text-base leading-8">
-              Sales data is analyzed privately. Lenders only receive a
-              verification result, not raw business records.
+              Data penjualan dianalisis secara rahasia.
+              Pemberi pinjaman hanya menerima hasil verifikasi, bukan data bisnis mentah.
             </p>
           </div>
 
@@ -63,40 +63,40 @@ export default function DashboardPage() {
             href="/generate-proof"
             className="primary-action inline-flex items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold transition"
           >
-            Generate Credit passport
+            Buat Paspor Kredit
             <ArrowRight size={17} />
           </Link>
         </motion.div>
 
         <div className="grid gap-5 md:grid-cols-4">
           <StatCard
-            label="Private revenue"
+            label="Pendapatan privat"
             value={formatCompactIDR(totalRevenue)}
-            helper="Exact sales stay private"
+            helper="Nilai penjualan aktual tetap privat"
             icon={Banknote}
             tone="blue"
           />
 
           <StatCard
-            label="Revenue growth"
+            label="Pertumbuhan pendapatan"
             value={`${growth.toFixed(1)}%`}
-            helper="Compared across periods"
+            helper="Dibandingkan antarperiode"
             icon={TrendingUp}
             tone="green"
           />
 
           <StatCard
-            label="Data exposure"
+            label="Data yang terbuka"
             value="0 rows"
-            helper="Selective disclosure only"
+            helper="Hanya selective disclosure"
             icon={EyeOff}
             tone="gold"
           />
 
           <StatCard
-            label="Credit readiness"
-            value="Eligible"
-            helper="Ready for lender evaluation"
+            label="Kesiapan proof"
+            value="Memenuhi syarat"
+            helper="Siap ditinjau lender"
             icon={CheckCircle2}
             tone="green"
           />
@@ -116,10 +116,10 @@ export default function DashboardPage() {
             <div className="mb-6 flex items-center justify-between">
               <div>
                 <h2 className="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">
-                  Revenue momentum
+                  Perkembangan pendapatan
                 </h2>
                 <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                  Marketplace revenue from private data sources.
+                  Pendapatan marketplace dari sumber data privat.
                 </p>
               </div>
 
@@ -128,7 +128,7 @@ export default function DashboardPage() {
               </div>
             </div>
 
-            <div className="h-[360px]">
+            <div className="h-90">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={chartData}>
                   <defs>
@@ -175,28 +175,26 @@ export default function DashboardPage() {
             className="surface-card rounded-[1.75rem] p-6"
           >
             <h2 className="text-2xl font-semibold tracking-tight text-slate-950 dark:text-white">
-              What lenders can verify
+              Informasi yang dapat dibuktikan
             </h2>
             <p className="mt-2 text-sm leading-6 text-slate-500 dark:text-slate-400">
-              Lenders can verify these conditions without accessing private business records.
+              Pernyataan ini dapat dibuktikan 
+              tanpa perlu mengungkapkan catatan transaksi mentah.
             </p>
 
             <div className="mt-6 space-y-3">
               {[
-                "Revenue requirement satisfied",
-                "Growth requirement satisfied",
-                "Customer identities remain private",
-                "Raw marketplace records never shared",
-                "Credit eligibility ready for verification",
+                `Revenue above ${formatIDR(10000000)}`,
+                "Pertumbuhan di atas 20%",
+                "Identitas pelanggan tersembunyi",
+                "Data transaksi tersembunyi",
+                "Lender dapat memverifikasi secara instan",
               ].map((item) => (
                 <div
                   key={item}
                   className="muted-surface flex items-center gap-3 rounded-xl p-4"
                 >
-                  <CheckCircle2
-                    className="text-emerald-600 dark:text-emerald-300"
-                    size={18}
-                  />
+                  <CheckCircle2 className="text-emerald-600 dark:text-emerald-300" size={18} />
                   <p className="text-sm font-medium text-slate-700 dark:text-slate-300">
                     {item}
                   </p>
@@ -208,7 +206,7 @@ export default function DashboardPage() {
               href="/generate-proof"
               className="primary-action mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl px-5 py-3.5 text-sm font-semibold transition"
             >
-              Generate Credit Passport
+              Buat proof privat
               <ArrowRight size={17} />
             </Link>
           </motion.div>

@@ -30,12 +30,12 @@ export default function ProofBadge({ verified }: Props) {
                 : "text-red-900 dark:text-red-100"
             }`}
           >
-            {verified ? "Verified credit passport" : "Proof not eligible"}
+            {verified ? "Paspor Kredit Terverifikasi" : "Proof Tidak Memenuhi Kriteria"}
           </p>
           <p className="text-sm text-slate-600 dark:text-slate-400">
             {verified
-              ? "Criteria passed without exposing raw business data."
-              : "The submitted proof does not meet the requested criteria."}
+              ? "Kriteria terpenuhi tanpa membuka data bisnis mentah."
+              : "Proof yang dikirim tidak memenuhi kriteria yang ditentukan."}
           </p>
         </div>
       </div>
@@ -43,12 +43,12 @@ export default function ProofBadge({ verified }: Props) {
       <div className="mt-5 grid gap-3 md:grid-cols-2">
         <div className="flex items-center gap-2 rounded-xl border border-white/70 bg-white/70 p-3 text-sm text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
           <Lock size={16} className="text-teal-700 dark:text-teal-300" />
-          Raw transactions hidden
+          Transaksi mentah tersembunyi
         </div>
 
         <div className="flex items-center gap-2 rounded-xl border border-white/70 bg-white/70 p-3 text-sm text-slate-700 dark:border-white/10 dark:bg-white/5 dark:text-slate-300">
           <ShieldCheck size={16} className="text-emerald-700 dark:text-emerald-300" />
-          Verified with privacy proof
+          Terverifikasi dengan privacy proof
         </div>
       </div>
     </div>
